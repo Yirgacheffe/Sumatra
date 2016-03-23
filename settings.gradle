@@ -1,0 +1,22 @@
+/*
+ * Sumatra Project project define file, include all sub projects
+ *
+ */
+rootProject.name = 'Sumatra'
+
+// include 'st-const'
+// include 'st-dto'
+// include 'st-ejb'
+// include 'st-entity'
+// include 'st-jobs'
+// include 'st-util'
+// include 'st-web'
+include 'st-persistence'
+
+rootProject.children.each { project ->
+
+  project.buildFileName = "${project.name}.gradle"
+  assert project.projectDir.isDirectory()
+  assert project.buildFile.exists() && project.buildFile.isFile()
+
+} //:~

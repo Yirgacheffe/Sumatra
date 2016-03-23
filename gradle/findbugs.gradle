@@ -1,0 +1,18 @@
+/*
+ * findbugs.gradle
+ * 
+ */
+apply plugin: 'findbugs'
+
+findbugs {
+  ignoreFailures = true
+  effort = "max"
+  reportLevel = "high"
+}
+
+tasks.withType( FindBugs ) {
+  reports {
+    html.enabled = true
+    xml.enabled = false
+  }
+}

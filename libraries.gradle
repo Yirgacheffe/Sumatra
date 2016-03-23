@@ -1,0 +1,33 @@
+/*
+ * Sumatra project for Idiomatic Java
+ *
+ * build a map of the dependency artifacts to use. Allows centralized definition of the version of artifacts to use.
+ * In that respect it serves a role similar to <dependencyManagement> in Maven
+ */
+ext {
+
+  junitVersion = '4.11'
+
+  libraries = [
+
+    // general testing framework
+    junit:                        "junit:junit:${junitVersion}",
+    mockito:                      "org.mockito:mockito-core:1.10.19",
+    testng:                       "org.testng:testng:6.9.10",
+
+    // javaee apis
+    javaee_api:                   "javax:javaee-api:7.0",
+
+    // apache
+    apache_common_lang:           "org.apache.commons:commons-lang3:3.4",
+
+    // logging api
+    slf4j_api:                    "org.slf4j:slf4j-api:1.7.19",
+    slf4j_log4j:                  "org.slf4j:slf4j-log4j12:1.7.19",
+
+    // hibernate framework
+    hibernate_core:               "org.hibernate:hibernate-core:5.1.0.Final"
+
+  ]
+
+}

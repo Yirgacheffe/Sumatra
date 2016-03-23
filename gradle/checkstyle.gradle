@@ -1,0 +1,13 @@
+/*
+ * checkstyle.gradle
+ * 
+ */
+apply plugin: 'checkstyle'
+
+ext.checkstyleConfigDir = "${sharedConfigDir}/checkstyle"
+
+checkstyle {
+  configFile = new File( checkstyleConfigDir, 'checkstyle.xml' )
+  ignoreFailures = true
+  showViolations = false
+}

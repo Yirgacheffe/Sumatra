@@ -1,0 +1,14 @@
+/*
+ * jacoco.gradle
+ * 
+ */
+apply plugin: 'jacoco'
+
+jacocoTestReport {
+  reports {
+    html.enabled true
+    xml.enabled false
+    csv.enabled false
+    // html.destination "${buildDir}/jacocoHtml"
+  }
+}
