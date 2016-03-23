@@ -1,0 +1,77 @@
+/**
+ * build.gradle
+ *
+ * Gradle build script followed by convention over configuration rules
+ * Currently we don't have any comments here, just a place holder that will change in the future
+ */
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+apply from: './libraries.gradle'
+
+// Using jcenter binary repositories
+allprojects {
+  repositories {
+    jcenter()
+  }
+}
+
+buildscript {
+  repositories {
+    jcenter()
+  }
+}
+
+// External properties to control the java version and release version
+ext {
+  expectedGradleVersion = '2.12'
+  javaLanguageLevel = '1.7'
+
+  targetVersion   = '1.0.0-SNAPSHOT'
+  gradleScriptDir = "${rootProject.projectDir}/gradle"
+  sharedConfigDir = "${rootProject.projectDir}/shared/config"
+}
+
+subprojects { project ->
+
+  apply plugin: 'java'
+  apply plugin: 'idea'
+  apply plugin: 'eclipse'
+
+  apply from: "${gradleScriptDir}/findbugs.gradle"
+  apply from: "${gradleScriptDir}/jacoco.gradle"
+  apply from: "${gradleScriptDir}/checkstyle.gradle"
+
+  defaultTasks 'build'
+  buildDir     'target'
+
+  group='com.nsv.timentry'
+  version = rootProject.targetVersion
+
+  targetCompatibility = rootProject.javaLanguageLevel
+  sourceCompatibility = rootProject.javaLanguageLevel
+
+  dependencies {
+    compile        ( libraries.javaee_api )
+    compile        ( libraries.slf4j_api  )
+    compile        ( libraries.apache_common_lang )
+    testCompile    ( libraries.junit      )
+    testCompile    ( libraries.mockito    )
+    testCompile    ( libraries.hibernate_core     )
+  }
+
+  sourceSets {
+    main {
+      java.srcDir       'src/main/java'
+      resources.srcDir  'src/main/resources'
+    }
+    test {
+      java.srcDir       'src/test/java'
+      resources.srcDir  'src/test/resources'
+    }
+  }
+
+  check.dependsOn test
+
+} //:~
+
