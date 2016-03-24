@@ -22,7 +22,7 @@ buildscript {
   }
 }
 
-// External properties to control the java version and release version
+// External properties to set the java version and release version
 ext {
   expectedGradleVersion = '2.12'
   javaLanguageLevel = '1.7'
@@ -57,7 +57,8 @@ subprojects { project ->
     compile        ( libraries.apache_common_lang )
     testCompile    ( libraries.junit      )
     testCompile    ( libraries.mockito    )
-    testCompile    ( libraries.hibernate_core     )
+    testCompile    ( libraries.hibernate_em       )
+    testRuntime    ( libraries.mysql_driver       )
   }
 
   sourceSets {

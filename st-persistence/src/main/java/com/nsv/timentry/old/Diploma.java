@@ -1,8 +1,11 @@
-//: com.nsv.timentry.entity: Department.java
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.nsv.timentry.entity;
 
 import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,14 +24,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author woodpecker
  */
 @Entity
-@Table(name = "departments")
+@Table(name = "diploma")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Departments.findAll", query = "SELECT d FROM Departments d"),
-    @NamedQuery(name = "Departments.findById", query = "SELECT d FROM Departments d WHERE d.id = :id"),
-    @NamedQuery(name = "Departments.findByName", query = "SELECT d FROM Departments d WHERE d.name = :name"),
-    @NamedQuery(name = "Departments.findByMemo", query = "SELECT d FROM Departments d WHERE d.memo = :memo")})
-public class Departments implements Serializable {
+    @NamedQuery(name = "Diploma.findAll", query = "SELECT d FROM Diploma d"),
+    @NamedQuery(name = "Diploma.findById", query = "SELECT d FROM Diploma d WHERE d.id = :id"),
+    @NamedQuery(name = "Diploma.findByName", query = "SELECT d FROM Diploma d WHERE d.name = :name"),
+    @NamedQuery(name = "Diploma.findByMemo", query = "SELECT d FROM Diploma d WHERE d.memo = :memo")})
+public class Diploma implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,23 +41,26 @@ public class Departments implements Serializable {
     private Short id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 30)
     @Column(name = "NAME")
     private String name;
-    @Size(max = 100)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
     @Column(name = "MEMO")
     private String memo;
 
-    public Departments() {
+    public Diploma() {
     }
 
-    public Departments(Short id) {
+    public Diploma(Short id) {
         this.id = id;
     }
 
-    public Departments(Short id, String name) {
+    public Diploma(Short id, String name, String memo) {
         this.id = id;
         this.name = name;
+        this.memo = memo;
     }
 
     public Short getId() {
@@ -91,10 +97,10 @@ public class Departments implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Departments)) {
+        if (!(object instanceof Diploma)) {
             return false;
         }
-        Departments other = (Departments) object;
+        Diploma other = (Diploma) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -103,7 +109,7 @@ public class Departments implements Serializable {
 
     @Override
     public String toString() {
-        return "com.nsv.timentry.persistence.Departments[ id=" + id + " ]";
+        return "com.nsv.timentry.persistence.Diploma[ id=" + id + " ]";
     }
     
 }

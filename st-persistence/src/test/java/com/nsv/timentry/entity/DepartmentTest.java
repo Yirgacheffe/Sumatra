@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
 
-public class DepartmentsTest {
+public class DepartmentTest {
 
     private EntityManagerFactory emf = null;
     
@@ -27,11 +27,11 @@ public class DepartmentsTest {
     @Test
     public void smokeTest() {
         EntityManager em = emf.createEntityManager();
-        List<Departments> departments = 
-                em.createNativeQuery( "SELECT * FROM DEPARTMENTS", Departments.class ).getResultList();
+        List<Department> departments = 
+                em.createNativeQuery( "SELECT * FROM DEPARTMENTS", Department.class ).getResultList();
         
-        for ( Departments dept : departments ) {
-            System.out.println( dept.getName() );
+        for ( Department dept : departments ) {
+            System.out.println( dept.toString() );
         }
         
         em.close();

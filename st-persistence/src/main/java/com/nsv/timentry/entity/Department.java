@@ -1,4 +1,4 @@
-//: com.nsv.timentry.entity: Diploma.java
+//: com.nsv.timentry.entity: Department.java
 package com.nsv.timentry.entity;
 
 import java.io.Serializable;
@@ -18,13 +18,13 @@ import static javax.persistence.FetchType.LAZY;
 
 
 /**
- * Entity class mapping to table 'DIPLOMA'
+ * Entity class mapping to table 'DEPARTMENTS'
  * 
- * @version 1.0.0 $ 2016-03-24 11:44 $
+ * @version 1.0.0 $ 2016-03-24 09:33 $
  */
 @Entity
-@Table( name = "DIPLOMA" )
-public final class Diploma implements Serializable {
+@Table( name = "DEPARTMENTS" )
+public final class Department implements Serializable {
     
     
     private static final long serialVersionUID = 1L;
@@ -45,9 +45,9 @@ public final class Diploma implements Serializable {
         this.id = id;
     }
     
-    @Column( name = "NAME", nullable = false, length = 30 )
+    @Column( name = "NAME", nullable = false, length = 100 )
     @NotNull
-    @Size( min = 1, max = 30 )
+    @Size( min = 1, max = 100 )
     public String getName() {
         return this.name;
     }
@@ -57,9 +57,8 @@ public final class Diploma implements Serializable {
     }
     
     @Basic( fetch = LAZY )
-    @Column( name ="MEMO", nullable = false, length = 30 )
-    @NotNull
-    @Size( min = 1, max = 30 )
+    @Column( name ="MEMO", length = 100 )
+    @Size( max = 100 )
     public String getMemo() {
         return this.memo;
     }
@@ -71,8 +70,8 @@ public final class Diploma implements Serializable {
     
     @Override
     public String toString() {
-        return "com.nsv.timentry.persistence.Diploma[ id=" + id + " ]";
+        return "com.nsv.timentry.persistence.Department[ id=" + id + " ]";
     }
-    
+
     
 } //:~
