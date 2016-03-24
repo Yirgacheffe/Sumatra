@@ -1,6 +1,7 @@
 //: com.nsv.timentry.entity: Department.java
-package com.nsv.timentry.entity;
+package com.nsv.timentry.old;
 
+import com.nsv.timentry.entity.*;
 import java.io.Serializable;
 
 import javax.persistence.Basic;

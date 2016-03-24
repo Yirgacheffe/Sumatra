@@ -42,7 +42,7 @@ CREATE TABLE `HR_ROLES` (
   IS_TVs                BIT(1)                    NOT NULL DEFAULT 0 COMMENT '0:ads     1:TVs',
   IS_REMOVED            BIT(1)                    NOT NULL DEFAULT 0 COMMENT '0:Normal  1:Removed',
   MEMO                  VARCHAR(100)              NOT NULL DEFAULT '',
-  VERSION               TINYINT                   NOT NULL DEFAULT 1 ,
+  VERSION               SMALLINT                  NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -84,8 +84,8 @@ CREATE TABLE `EMPLOYEE` (
   IDCARD_NUM            CHAR(18)                  NOT NULL,
   LAST_WORKING_DAY      DATE,
   ARCHIVE_FILE          VARCHAR(150),
-  MEMO                  VARCHAR(150)              NOT NULL,
-  VERSION               TINYINT                   NOT NULL DEFAULT 1,
+  MEMO                  VARCHAR(150),
+  VERSION               SMALLINT                  NOT NULL,
   PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -103,12 +103,12 @@ CREATE TABLE `EMP_HR_ROLES` (
 --
 -- Table structure for table `EMP_CERTIFICATE` ---------------------------------------------------------
 --
-DROP TABLE IF EXISTS `EMP_CERTIFICATE`;
+DROP TABLE IF EXISTS `CERTIFICATES`;
 
-CREATE TABLE `EMP_CERTIFICATE` (
-  ID                    INT                       NOT NULL AUTO_INCREMENT,
-  EMP_ID                SMALLINT                  NOT NULL,
+CREATE TABLE `CERTIFICATES` (
+  ID                    SMALLINT                  NOT NULL AUTO_INCREMENT,
   CERT_NAME             VARCHAR(50)               NOT NULL,
+  EMP_ID                SMALLINT                  NOT NULL,
   ISSUER                VARCHAR(50)               NOT NULL,
   ISSUE_DATE            DATE                      NOT NULL,
   EXPIRE_DATE           DATE,
@@ -126,7 +126,7 @@ CREATE TABLE `ROLES` (
   NAME                  VARCHAR(50)               NOT NULL,
   IS_REMOVED            BIT(1)                    NOT NULL DEFAULT 0 COMMENT '0：Normal 1：Removed',
   MEMO                  VARCHAR(50)               NOT NULL DEFAULT '',
-  VERSION               TINYINT                   NOT NULL DEFAULT 1 ,
+  VERSION               SMALLINT                  NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -143,7 +143,7 @@ CREATE TABLE `USERS` (
   ROLE_ID               TINYINT                   NOT NULL,
   IS_REMOVED            BIT(1)                    NOT NULL DEFAULT 0 COMMENT '0：Normal 1：Removed',
   OFFICE_ID             TINYINT                   NOT NULL,
-  VERSION               TINYINT                   NOT NULL DEFAULT 1,
+  VERSION               SMALLINT                  NOT NULL,
   PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -159,7 +159,7 @@ CREATE TABLE `HOLIDAY` (
   TYPE                  ENUM('N', 'W', 'H')       NOT NULL COMMENT 'N: Normal W: Weekend H: Public Holiday',
   WEEK                  TINYINT                   NOT NULL,
   MEMO                  VARCHAR(100)              NOT NULL DEFAULT '',
-  VERSION               TINYINT                   NOT NULL DEFAULT 1 ,
+  VERSION               SMALLINT                  NOT NULL,
   PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -174,7 +174,7 @@ CREATE TABLE `PROJ_ROLES` (
   NAME                  VARCHAR(50)               NOT NULL UNIQUE,
   MEMO                  VARCHAR(50)               NOT NULL DEFAULT '',
   IS_REMOVED            BIT(1)                    NOT NULL DEFAULT 0 COMMENT '0：Normal 1：Removed',
-  VERSION               TINYINT                   NOT NULL DEFAULT 1,
+  VERSION               SMALLINT                  NOT NULL,
   PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -197,7 +197,7 @@ CREATE TABLE `PROJECTS` (
   LAST_UPDATED_BY       INT                       NOT NULL,
   TS_CREATED            DATETIME                  NOT NULL DEFAULT CURRENT_TIMESTAMP,
   TS_UPDATED            DATETIME                  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  VERSION               TINYINT                   NOT NULL DEFAULT 1,
+  VERSION               SMALLINT                  NOT NULL,
   PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -220,7 +220,7 @@ CREATE TABLE `PROJ_TASKS` (
   LAST_UPDATED_BY       INT                       NOT NULL,
   TS_CREATED            DATETIME                  NOT NULL DEFAULT CURRENT_TIMESTAMP,
   TS_UPDATED            DATETIME                  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  VERSION               TINYINT                   NOT NULL DEFAULT 1,
+  VERSION               SMALLINT                  NOT NULL,
   PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -251,7 +251,7 @@ CREATE TABLE `WEEK_LOGS` (
   WEEK                  TINYINT                   NOT NULL,
   EMP_ID                SMALLINT                  NOT NULL,
   STATUS                ENUM('C', 'S', 'R', 'P')  NOT NULL COMMENT 'C: Created, S: Submitted, R: Rejected, P: Permitted',
-  VERSION               TINYINT                   NOT NULL DEFAULT 1,
+  VERSION               SMALLINT                  NOT NULL,
   PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -268,7 +268,7 @@ CREATE TABLE `DAY_LOGS` (
   STATUS                ENUM('C', 'S', 'R', 'P')  NOT NULL COMMENT 'C: Created, S: Submitted, R: Rejected, P: Permitted',
   HOURS                 TINYINT                   NOT NULL,
   MEAL                  TINYINT                   NOT NULL,
-  VERSION               TINYINT                   NOT NULL DEFAULT 1,
+  VERSION               SMALLINT                  NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

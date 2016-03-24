@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nsv.timentry.entity;
+package com.nsv.timentry.old;
 
+import com.nsv.timentry.entity.*;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -53,7 +54,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Employee.findByArchiveFile", query = "SELECT e FROM Employee e WHERE e.archiveFile = :archiveFile"),
     @NamedQuery(name = "Employee.findByMemo", query = "SELECT e FROM Employee e WHERE e.memo = :memo"),
     @NamedQuery(name = "Employee.findByVersion", query = "SELECT e FROM Employee e WHERE e.version = :version")})
-public class Employee implements Serializable {
+public class EmployeeBak implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -160,14 +161,14 @@ public class Employee implements Serializable {
     @Column(name = "VERSION")
     private short version;
 
-    public Employee() {
+    public EmployeeBak() {
     }
 
-    public Employee(Short id) {
+    public EmployeeBak(Short id) {
         this.id = id;
     }
 
-    public Employee(Short id, String name, String gender, String email, Date onBoardDate, short deptId, Date probationEnd, short diplomaId, String graduationYr, String college, String major, String position, String nation, boolean isMarried, String politicalType, String residence, String residenceType, String idcardNum, String memo, short version) {
+    public EmployeeBak(Short id, String name, String gender, String email, Date onBoardDate, short deptId, Date probationEnd, short diplomaId, String graduationYr, String college, String major, String position, String nation, boolean isMarried, String politicalType, String residence, String residenceType, String idcardNum, String memo, short version) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -376,10 +377,10 @@ public class Employee implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Employee)) {
+        if (!(object instanceof EmployeeBak)) {
             return false;
         }
-        Employee other = (Employee) object;
+        EmployeeBak other = (EmployeeBak) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

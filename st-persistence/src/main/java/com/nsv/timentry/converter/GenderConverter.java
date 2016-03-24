@@ -1,6 +1,7 @@
-//: com.nsv.timentry.entity: GenderConverter.java
-package com.nsv.timentry.entity;
+//: com.nsv.timentry.converter: GenderConverter.java
+package com.nsv.timentry.converter;
 
+import com.nsv.timentry.entity.*;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 

@@ -5,6 +5,7 @@
  */
 package com.nsv.timentry.old;
 
+import com.nsv.timentry.entity.*;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -24,14 +25,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author woodpecker
  */
 @Entity
-@Table(name = "diploma")
+@Table(name = "hr_roles")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Diploma.findAll", query = "SELECT d FROM Diploma d"),
-    @NamedQuery(name = "Diploma.findById", query = "SELECT d FROM Diploma d WHERE d.id = :id"),
-    @NamedQuery(name = "Diploma.findByName", query = "SELECT d FROM Diploma d WHERE d.name = :name"),
-    @NamedQuery(name = "Diploma.findByMemo", query = "SELECT d FROM Diploma d WHERE d.memo = :memo")})
-public class Diploma implements Serializable {
+    @NamedQuery(name = "HrRoles.findAll", query = "SELECT h FROM HrRoles h"),
+    @NamedQuery(name = "HrRoles.findById", query = "SELECT h FROM HrRoles h WHERE h.id = :id"),
+    @NamedQuery(name = "HrRoles.findByName", query = "SELECT h FROM HrRoles h WHERE h.name = :name"),
+    @NamedQuery(name = "HrRoles.findByISTVs", query = "SELECT h FROM HrRoles h WHERE h.iSTVs = :iSTVs"),
+    @NamedQuery(name = "HrRoles.findByIsRemoved", query = "SELECT h FROM HrRoles h WHERE h.isRemoved = :isRemoved"),
+    @NamedQuery(name = "HrRoles.findByMemo", query = "SELECT h FROM HrRoles h WHERE h.memo = :memo"),
+    @NamedQuery(name = "HrRoles.findByVersion", query = "SELECT h FROM HrRoles h WHERE h.version = :version")})
+public class HrRoles implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,26 +45,41 @@ public class Diploma implements Serializable {
     private Short id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 30)
+    @Size(min = 1, max = 50)
     @Column(name = "NAME")
     private String name;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 30)
+    @Column(name = "IS_TVs")
+    private boolean iSTVs;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "IS_REMOVED")
+    private boolean isRemoved;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "MEMO")
     private String memo;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "VERSION")
+    private short version;
 
-    public Diploma() {
+    public HrRoles() {
     }
 
-    public Diploma(Short id) {
+    public HrRoles(Short id) {
         this.id = id;
     }
 
-    public Diploma(Short id, String name, String memo) {
+    public HrRoles(Short id, String name, boolean iSTVs, boolean isRemoved, String memo, short version) {
         this.id = id;
         this.name = name;
+        this.iSTVs = iSTVs;
+        this.isRemoved = isRemoved;
         this.memo = memo;
+        this.version = version;
     }
 
     public Short getId() {
@@ -79,12 +98,36 @@ public class Diploma implements Serializable {
         this.name = name;
     }
 
+    public boolean getISTVs() {
+        return iSTVs;
+    }
+
+    public void setISTVs(boolean iSTVs) {
+        this.iSTVs = iSTVs;
+    }
+
+    public boolean getIsRemoved() {
+        return isRemoved;
+    }
+
+    public void setIsRemoved(boolean isRemoved) {
+        this.isRemoved = isRemoved;
+    }
+
     public String getMemo() {
         return memo;
     }
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public short getVersion() {
+        return version;
+    }
+
+    public void setVersion(short version) {
+        this.version = version;
     }
 
     @Override
@@ -97,10 +140,10 @@ public class Diploma implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Diploma)) {
+        if (!(object instanceof HrRoles)) {
             return false;
         }
-        Diploma other = (Diploma) object;
+        HrRoles other = (HrRoles) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -109,7 +152,7 @@ public class Diploma implements Serializable {
 
     @Override
     public String toString() {
-        return "com.nsv.timentry.persistence.Diploma[ id=" + id + " ]";
+        return "com.nsv.timentry.persistence.HrRoles[ id=" + id + " ]";
     }
     
 }
