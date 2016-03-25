@@ -36,7 +36,6 @@ public class Employee implements Serializable {
     
     private Short   id;
     private String  name;
-    private Gender  gender;
     private String  email;
     private Date    onBoardDate;
     private Date    probationEndDate;
@@ -51,14 +50,16 @@ public class Employee implements Serializable {
     private String  nation;
     
     private boolean isMarried;
-    
-    private String  politicalType;
     private String  residence;
-    private String  residenceType;
+    private boolean isArgicultural;
     private String  idCardNum;
     private String  archiveFile;
     private String  memo;
     private short   version;
+    
+    // Special enum type for column 'GENDER' and 'POLITICAL_TYPE
+    private Gender         gender;
+    private PoliticalType  politicalType;
 
     
     // ------------------------------------------------------------------------
@@ -211,14 +212,13 @@ public class Employee implements Serializable {
         this.isMarried = isMarried;
     }
     
-    @Column( name = "POLITICAL_TYPE", nullable = false, length = 2 )
+    @Column( name = "POLITICAL_TYPE", nullable = false, length = 1 )
     @NotNull
-    @Size( min = 1, max = 2 )
-    public String getPoliticalType() {
+    public PoliticalType getPoliticalType() {
         return this.politicalType;
     }
     
-    public void setPoliticalType( String politicalType ) {
+    public void setPoliticalType( PoliticalType politicalType ) {
         this.politicalType = politicalType;
     }
 
@@ -233,15 +233,14 @@ public class Employee implements Serializable {
         this.residence = residence;
     }
 
-    @Column( name = "RESIDENCE_TYPE", nullable = false, length = 2 )
+    @Column( name = "RESIDENCE_TYPE", nullable = false )
     @NotNull
-    @Size( min = 1, max = 2 )
-    public String getResidenceType() {
-        return this.residenceType;
+    public boolean isArgicultural() {
+        return this.isArgicultural;
     }
     
-    public void setResidenceType( String residenceType ) {
-        this.residenceType = residenceType;
+    public void setArgicultural( boolean isArgicultural ) {
+        this.isArgicultural = isArgicultural;
     }
 
     @Column( name = "IDCARD_NUM", nullable = false, length = 18 )

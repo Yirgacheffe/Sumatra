@@ -1,50 +1,44 @@
-//: com.nsv.timentry.entity: HrRoles.java
+//: com.nsv.timentry.entity: ProjectRole.java
 package com.nsv.timentry.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
-import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import javax.persistence.Column;
-import javax.persistence.TemporalType;
-import javax.persistence.Temporal;
 import javax.persistence.Version;
-
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import static javax.persistence.GenerationType.IDENTITY;
-import static javax.persistence.FetchType.LAZY;
 
 
 /**
- * Entity class mapping to table 'HR_ROLES'
+ * Entity class mapping to table 'PROJ_ROLES'
  * 
- * @version 1.0.0 $ 2016-03-24 19:14 $
+ * @version 1.0.0 $ 2016-03-24 11:29 $
  */
 @Entity
-@Table( name = "HR_ROLES" )
-public final class HrRoles implements Serializable {
+@Table( name = "PROJ_ROLES" )
+public final class ProjectRole implements Serializable {
 
     
     private static final long serialVersionUID = 1L;
     
     
     private Short   id;
-    
+    private String  acronym;
     private String  name;
-    private boolean isTVs;
-    private boolean isRemoved;
     
+    private boolean isRemoved;
     private String  memo;
     private short   version;
     
     
+    // ------------------------------------------------------------------------
     @Id
     @GeneratedValue( strategy = IDENTITY )
     @Column( name = "ID" )
@@ -56,9 +50,20 @@ public final class HrRoles implements Serializable {
         this.id = id;
     }
 
+    @Column( name = "ACRONYM", nullable = false, length = 4 )
+    @NotNull
+    @Size( min = 1, max = 4 )
+    public String getAcronym() {
+        return this.acronym;
+    }
+
+    public void setAcronym( String acronym ) {
+        this.acronym = acronym;
+    }
+    
     @Column( name = "NAME", nullable = false, length = 50 )
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size( min = 1, max = 50 )
     public String getName() {
         return this.name;
     }
@@ -67,52 +72,43 @@ public final class HrRoles implements Serializable {
         this.name = name;
     }
     
-    @Column( name = "IS_TVs", nullable = false )
-    @NotNull
-    public boolean isTVs() {
-        return this.isTVs;
-    }
 
-    public void setIsTVs( boolean isTVs ) {
-        this.isTVs = isTVs;
-    }
-    
-    
     @Column( name = "IS_REMOVED", nullable = false )
     @NotNull
     public boolean isRemoved() {
-        return isRemoved;
+        return this.isRemoved;
     }
 
-    public void setIsRemoved( boolean isRemoved ) {
+    public void setRemoved( boolean isRemoved ) {
         this.isRemoved = isRemoved;
     }
-
-    @Column( name = "MEMO", nullable = true, length = 100 )
-    @Size( max = 100 )
-    @Basic( fetch = LAZY )
+    
+    @Column( name = "MEMO", nullable = false, length = 50 )
+    @NotNull
+    @Size( min = 1, max = 50 )
     public String getMemo() {
         return this.memo;
     }
-    
+
     public void setMemo( String memo ) {
         this.memo = memo;
     }
-    
+
     @Column( name = "VERSION", nullable = false )
     @NotNull
     @Version
     public short getVersion() {
         return this.version;
     }
-    
+
     public void setVersion( short version ) {
         this.version = version;
     }
 
     @Override
     public String toString() {
-        return "com.nsv.timentry.persistence.HrRoles[ id=" + id + " ]";
+        return "com.nsv.timentry.persistence.ProjectRole[ id=" + id + " ]";
     }
+    
     
 } //:~

@@ -80,7 +80,7 @@ CREATE TABLE `EMPLOYEE` (
   IS_MARRIED            BIT(1)                    NOT NULL DEFAULT  0  COMMENT '1:Married 0:Not married',
   POLITICAL_TYPE        ENUM('P', 'L', 'R')       NOT NULL DEFAULT 'R' COMMENT 'P:Party L:League G:Residence',
   RESIDENCE             VARCHAR(200)              NOT NULL,
-  RESIDENCE_TYPE        ENUM('A', 'B')            NOT NULL,
+  IS_AGRICULTURAL       BIT(1)                    NOT NULL DEFAULT  0  COMMENT '1:Agricultural 0:Non-Agricultural',
   IDCARD_NUM            CHAR(18)                  NOT NULL,
   LAST_WORKING_DAY      DATE,
   ARCHIVE_FILE          VARCHAR(150),
@@ -139,9 +139,9 @@ CREATE TABLE `USERS` (
   ID                    INT                       NOT NULL AUTO_INCREMENT,
   EMAIL                 VARCHAR(50)               NOT NULL UNIQUE,
   PASSWORD              CHAR(41)                  NOT NULL,
-  EMP_ID                SMALLINT,
+  EMP_ID                SMALLINT                  NOT NULL,
   ROLE_ID               TINYINT                   NOT NULL,
-  IS_REMOVED            BIT(1)                    NOT NULL DEFAULT 0 COMMENT '0：Normal 1：Removed',
+  IS_REMOVED            BIT(1)                    NOT NULL DEFAULT 0 COMMENT '0:Normal 1:Removed',
   OFFICE_ID             TINYINT                   NOT NULL,
   VERSION               SMALLINT                  NOT NULL,
   PRIMARY KEY(`ID`)
@@ -150,13 +150,13 @@ CREATE TABLE `USERS` (
 --
 -- Table structure for table `HOLIDAY` -----------------------------------------------------------------
 --
-DROP TABLE IF EXISTS `HOLIDAY`;
+DROP TABLE IF EXISTS `NON_WORKINGDAY`;
 
-CREATE TABLE `HOLIDAY` (
+CREATE TABLE `NON_WORKINGDAY` (
   ID                    INT                       NOT NULL AUTO_INCREMENT,
   HOLI_DATE             DATE                      NOT NULL,
   NAME                  VARCHAR(20)               NOT NULL,
-  TYPE                  ENUM('N', 'W', 'H')       NOT NULL COMMENT 'N: Normal W: Weekend H: Public Holiday',
+  TYPE                  ENUM('N', 'W', 'H')       NOT NULL COMMENT 'N:Normal W:Weekend H:Public Holiday',
   WEEK                  TINYINT                   NOT NULL,
   MEMO                  VARCHAR(100)              NOT NULL DEFAULT '',
   VERSION               SMALLINT                  NOT NULL,

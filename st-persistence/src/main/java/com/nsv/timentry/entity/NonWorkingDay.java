@@ -1,4 +1,4 @@
-// com.nsv.timentry.entity: Holiday.java
+// com.nsv.timentry.entity: NonWorkingDay.java
 package com.nsv.timentry.entity;
 
 import java.io.Serializable;
@@ -23,13 +23,13 @@ import static javax.persistence.FetchType.LAZY;
 
 
 /**
- * Entity class mapping to table 'HOLIDAY'
+ * Entity class mapping to table 'NON_WORKINGDAY'
  * 
  * @version 1.0.0 $ 2016-03-24 19:01 $
  */
 @Entity
-@Table( name = "HOLIDAY" )
-public final class Holiday implements Serializable {
+@Table( name = "NON_WORKINGDAY" )
+public final class NonWorkingDay implements Serializable {
 
     
     private static final long serialVersionUID = 1L;
@@ -39,7 +39,7 @@ public final class Holiday implements Serializable {
     
     private Date    holidayDate;
     private String  name;
-    private String  type;
+    private Day     type;
     private short   week;
     
     private String  memo;
@@ -80,14 +80,13 @@ public final class Holiday implements Serializable {
         this.name = name;
     }
 
-    @Column( name = "TYPE", nullable = false, length = 2 )
+    @Column( name = "TYPE", nullable = false )
     @NotNull
-    @Size(min = 1, max = 2)
-    public String getType() {
+    public Day getType() {
         return type;
     }
 
-    public void setType( String type ) {
+    public void setType( Day type ) {
         this.type = type;
     }
 

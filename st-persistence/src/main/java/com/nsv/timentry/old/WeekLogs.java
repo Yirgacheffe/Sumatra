@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nsv.timentry.entity;
+package com.nsv.timentry.old;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -24,102 +24,100 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author woodpecker
  */
 @Entity
-@Table(name = "roles")
+@Table(name = "week_logs")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r"),
-    @NamedQuery(name = "Roles.findById", query = "SELECT r FROM Roles r WHERE r.id = :id"),
-    @NamedQuery(name = "Roles.findByType", query = "SELECT r FROM Roles r WHERE r.type = :type"),
-    @NamedQuery(name = "Roles.findByName", query = "SELECT r FROM Roles r WHERE r.name = :name"),
-    @NamedQuery(name = "Roles.findByIsRemoved", query = "SELECT r FROM Roles r WHERE r.isRemoved = :isRemoved"),
-    @NamedQuery(name = "Roles.findByMemo", query = "SELECT r FROM Roles r WHERE r.memo = :memo"),
-    @NamedQuery(name = "Roles.findByVersion", query = "SELECT r FROM Roles r WHERE r.version = :version")})
-public class Roles implements Serializable {
+    @NamedQuery(name = "WeekLogs.findAll", query = "SELECT w FROM WeekLogs w"),
+    @NamedQuery(name = "WeekLogs.findById", query = "SELECT w FROM WeekLogs w WHERE w.id = :id"),
+    @NamedQuery(name = "WeekLogs.findByYear", query = "SELECT w FROM WeekLogs w WHERE w.year = :year"),
+    @NamedQuery(name = "WeekLogs.findByWeek", query = "SELECT w FROM WeekLogs w WHERE w.week = :week"),
+    @NamedQuery(name = "WeekLogs.findByEmpId", query = "SELECT w FROM WeekLogs w WHERE w.empId = :empId"),
+    @NamedQuery(name = "WeekLogs.findByStatus", query = "SELECT w FROM WeekLogs w WHERE w.status = :status"),
+    @NamedQuery(name = "WeekLogs.findByVersion", query = "SELECT w FROM WeekLogs w WHERE w.version = :version")})
+public class WeekLogs implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID")
-    private Short id;
+    private Integer id;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "YEAR")
+    private short year;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "WEEK")
+    private short week;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "EMP_ID")
+    private short empId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
-    @Column(name = "TYPE")
-    private String type;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "NAME")
-    private String name;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "IS_REMOVED")
-    private boolean isRemoved;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "MEMO")
-    private String memo;
+    @Column(name = "STATUS")
+    private String status;
     @Basic(optional = false)
     @NotNull
     @Column(name = "VERSION")
     private short version;
 
-    public Roles() {
+    public WeekLogs() {
     }
 
-    public Roles(Short id) {
+    public WeekLogs(Integer id) {
         this.id = id;
     }
 
-    public Roles(Short id, String type, String name, boolean isRemoved, String memo, short version) {
+    public WeekLogs(Integer id, short year, short week, short empId, String status, short version) {
         this.id = id;
-        this.type = type;
-        this.name = name;
-        this.isRemoved = isRemoved;
-        this.memo = memo;
+        this.year = year;
+        this.week = week;
+        this.empId = empId;
+        this.status = status;
         this.version = version;
     }
 
-    public Short getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Short id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public short getYear() {
+        return year;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setYear(short year) {
+        this.year = year;
     }
 
-    public String getName() {
-        return name;
+    public short getWeek() {
+        return week;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setWeek(short week) {
+        this.week = week;
     }
 
-    public boolean getIsRemoved() {
-        return isRemoved;
+    public short getEmpId() {
+        return empId;
     }
 
-    public void setIsRemoved(boolean isRemoved) {
-        this.isRemoved = isRemoved;
+    public void setEmpId(short empId) {
+        this.empId = empId;
     }
 
-    public String getMemo() {
-        return memo;
+    public String getStatus() {
+        return status;
     }
 
-    public void setMemo(String memo) {
-        this.memo = memo;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public short getVersion() {
@@ -140,10 +138,10 @@ public class Roles implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Roles)) {
+        if (!(object instanceof WeekLogs)) {
             return false;
         }
-        Roles other = (Roles) object;
+        WeekLogs other = (WeekLogs) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -152,7 +150,7 @@ public class Roles implements Serializable {
 
     @Override
     public String toString() {
-        return "com.nsv.timentry.persistence.Roles[ id=" + id + " ]";
+        return "com.nsv.timentry.persistence.WeekLogs[ id=" + id + " ]";
     }
     
 }

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nsv.timentry.entity;
+package com.nsv.timentry.old;
 
+import com.nsv.timentry.entity.*;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -27,25 +28,25 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author woodpecker
  */
 @Entity
-@Table(name = "proj_tasks")
+@Table(name = "projects")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProjTasks.findAll", query = "SELECT p FROM ProjTasks p"),
-    @NamedQuery(name = "ProjTasks.findById", query = "SELECT p FROM ProjTasks p WHERE p.id = :id"),
-    @NamedQuery(name = "ProjTasks.findByProjId", query = "SELECT p FROM ProjTasks p WHERE p.projId = :projId"),
-    @NamedQuery(name = "ProjTasks.findByName", query = "SELECT p FROM ProjTasks p WHERE p.name = :name"),
-    @NamedQuery(name = "ProjTasks.findByIsExtenal", query = "SELECT p FROM ProjTasks p WHERE p.isExtenal = :isExtenal"),
-    @NamedQuery(name = "ProjTasks.findByStartDate", query = "SELECT p FROM ProjTasks p WHERE p.startDate = :startDate"),
-    @NamedQuery(name = "ProjTasks.findByCloseDate", query = "SELECT p FROM ProjTasks p WHERE p.closeDate = :closeDate"),
-    @NamedQuery(name = "ProjTasks.findByEstimation", query = "SELECT p FROM ProjTasks p WHERE p.estimation = :estimation"),
-    @NamedQuery(name = "ProjTasks.findByPhaseId", query = "SELECT p FROM ProjTasks p WHERE p.phaseId = :phaseId"),
-    @NamedQuery(name = "ProjTasks.findByMemo", query = "SELECT p FROM ProjTasks p WHERE p.memo = :memo"),
-    @NamedQuery(name = "ProjTasks.findByCreatorId", query = "SELECT p FROM ProjTasks p WHERE p.creatorId = :creatorId"),
-    @NamedQuery(name = "ProjTasks.findByLastUpdatedBy", query = "SELECT p FROM ProjTasks p WHERE p.lastUpdatedBy = :lastUpdatedBy"),
-    @NamedQuery(name = "ProjTasks.findByTsCreated", query = "SELECT p FROM ProjTasks p WHERE p.tsCreated = :tsCreated"),
-    @NamedQuery(name = "ProjTasks.findByTsUpdated", query = "SELECT p FROM ProjTasks p WHERE p.tsUpdated = :tsUpdated"),
-    @NamedQuery(name = "ProjTasks.findByVersion", query = "SELECT p FROM ProjTasks p WHERE p.version = :version")})
-public class ProjTasks implements Serializable {
+    @NamedQuery(name = "Projects.findAll", query = "SELECT p FROM Projects p"),
+    @NamedQuery(name = "Projects.findById", query = "SELECT p FROM Projects p WHERE p.id = :id"),
+    @NamedQuery(name = "Projects.findByProjNum", query = "SELECT p FROM Projects p WHERE p.projNum = :projNum"),
+    @NamedQuery(name = "Projects.findByName", query = "SELECT p FROM Projects p WHERE p.name = :name"),
+    @NamedQuery(name = "Projects.findByStartDate", query = "SELECT p FROM Projects p WHERE p.startDate = :startDate"),
+    @NamedQuery(name = "Projects.findByCloseDate", query = "SELECT p FROM Projects p WHERE p.closeDate = :closeDate"),
+    @NamedQuery(name = "Projects.findByIsProj", query = "SELECT p FROM Projects p WHERE p.isProj = :isProj"),
+    @NamedQuery(name = "Projects.findByBudget", query = "SELECT p FROM Projects p WHERE p.budget = :budget"),
+    @NamedQuery(name = "Projects.findByStatus", query = "SELECT p FROM Projects p WHERE p.status = :status"),
+    @NamedQuery(name = "Projects.findByMemo", query = "SELECT p FROM Projects p WHERE p.memo = :memo"),
+    @NamedQuery(name = "Projects.findByCreatorId", query = "SELECT p FROM Projects p WHERE p.creatorId = :creatorId"),
+    @NamedQuery(name = "Projects.findByLastUpdatedBy", query = "SELECT p FROM Projects p WHERE p.lastUpdatedBy = :lastUpdatedBy"),
+    @NamedQuery(name = "Projects.findByTsCreated", query = "SELECT p FROM Projects p WHERE p.tsCreated = :tsCreated"),
+    @NamedQuery(name = "Projects.findByTsUpdated", query = "SELECT p FROM Projects p WHERE p.tsUpdated = :tsUpdated"),
+    @NamedQuery(name = "Projects.findByVersion", query = "SELECT p FROM Projects p WHERE p.version = :version")})
+public class Projects implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,8 +56,9 @@ public class ProjTasks implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "PROJ_ID")
-    private int projId;
+    @Size(min = 1, max = 50)
+    @Column(name = "PROJ_NUM")
+    private String projNum;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -64,26 +66,25 @@ public class ProjTasks implements Serializable {
     private String name;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "IS_EXTENAL")
-    private boolean isExtenal;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "START_DATE")
     @Temporal(TemporalType.DATE)
     private Date startDate;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "CLOSE_DATE")
     @Temporal(TemporalType.DATE)
     private Date closeDate;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "ESTIMATION")
-    private int estimation;
+    @Column(name = "IS_PROJ")
+    private boolean isProj;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "PHASE_ID")
-    private short phaseId;
+    @Column(name = "BUDGET")
+    private int budget;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2)
+    @Column(name = "STATUS")
+    private String status;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
@@ -112,22 +113,21 @@ public class ProjTasks implements Serializable {
     @Column(name = "VERSION")
     private short version;
 
-    public ProjTasks() {
+    public Projects() {
     }
 
-    public ProjTasks(Integer id) {
+    public Projects(Integer id) {
         this.id = id;
     }
 
-    public ProjTasks(Integer id, int projId, String name, boolean isExtenal, Date startDate, Date closeDate, int estimation, short phaseId, String memo, int creatorId, int lastUpdatedBy, Date tsCreated, Date tsUpdated, short version) {
+    public Projects(Integer id, String projNum, String name, Date startDate, boolean isProj, int budget, String status, String memo, int creatorId, int lastUpdatedBy, Date tsCreated, Date tsUpdated, short version) {
         this.id = id;
-        this.projId = projId;
+        this.projNum = projNum;
         this.name = name;
-        this.isExtenal = isExtenal;
         this.startDate = startDate;
-        this.closeDate = closeDate;
-        this.estimation = estimation;
-        this.phaseId = phaseId;
+        this.isProj = isProj;
+        this.budget = budget;
+        this.status = status;
         this.memo = memo;
         this.creatorId = creatorId;
         this.lastUpdatedBy = lastUpdatedBy;
@@ -144,12 +144,12 @@ public class ProjTasks implements Serializable {
         this.id = id;
     }
 
-    public int getProjId() {
-        return projId;
+    public String getProjNum() {
+        return projNum;
     }
 
-    public void setProjId(int projId) {
-        this.projId = projId;
+    public void setProjNum(String projNum) {
+        this.projNum = projNum;
     }
 
     public String getName() {
@@ -158,14 +158,6 @@ public class ProjTasks implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public boolean getIsExtenal() {
-        return isExtenal;
-    }
-
-    public void setIsExtenal(boolean isExtenal) {
-        this.isExtenal = isExtenal;
     }
 
     public Date getStartDate() {
@@ -184,20 +176,28 @@ public class ProjTasks implements Serializable {
         this.closeDate = closeDate;
     }
 
-    public int getEstimation() {
-        return estimation;
+    public boolean getIsProj() {
+        return isProj;
     }
 
-    public void setEstimation(int estimation) {
-        this.estimation = estimation;
+    public void setIsProj(boolean isProj) {
+        this.isProj = isProj;
     }
 
-    public short getPhaseId() {
-        return phaseId;
+    public int getBudget() {
+        return budget;
     }
 
-    public void setPhaseId(short phaseId) {
-        this.phaseId = phaseId;
+    public void setBudget(int budget) {
+        this.budget = budget;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getMemo() {
@@ -258,10 +258,10 @@ public class ProjTasks implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ProjTasks)) {
+        if (!(object instanceof Projects)) {
             return false;
         }
-        ProjTasks other = (ProjTasks) object;
+        Projects other = (Projects) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -270,7 +270,7 @@ public class ProjTasks implements Serializable {
 
     @Override
     public String toString() {
-        return "com.nsv.timentry.persistence.ProjTasks[ id=" + id + " ]";
+        return "com.nsv.timentry.persistence.Projects[ id=" + id + " ]";
     }
     
 }

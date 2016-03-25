@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nsv.timentry.entity;
+package com.nsv.timentry.old;
 
+import com.nsv.timentry.entity.*;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -24,17 +25,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author woodpecker
  */
 @Entity
-@Table(name = "proj_roles")
+@Table(name = "roles")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProjRoles.findAll", query = "SELECT p FROM ProjRoles p"),
-    @NamedQuery(name = "ProjRoles.findById", query = "SELECT p FROM ProjRoles p WHERE p.id = :id"),
-    @NamedQuery(name = "ProjRoles.findByAcronym", query = "SELECT p FROM ProjRoles p WHERE p.acronym = :acronym"),
-    @NamedQuery(name = "ProjRoles.findByName", query = "SELECT p FROM ProjRoles p WHERE p.name = :name"),
-    @NamedQuery(name = "ProjRoles.findByMemo", query = "SELECT p FROM ProjRoles p WHERE p.memo = :memo"),
-    @NamedQuery(name = "ProjRoles.findByIsRemoved", query = "SELECT p FROM ProjRoles p WHERE p.isRemoved = :isRemoved"),
-    @NamedQuery(name = "ProjRoles.findByVersion", query = "SELECT p FROM ProjRoles p WHERE p.version = :version")})
-public class ProjRoles implements Serializable {
+    @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r"),
+    @NamedQuery(name = "Roles.findById", query = "SELECT r FROM Roles r WHERE r.id = :id"),
+    @NamedQuery(name = "Roles.findByType", query = "SELECT r FROM Roles r WHERE r.type = :type"),
+    @NamedQuery(name = "Roles.findByName", query = "SELECT r FROM Roles r WHERE r.name = :name"),
+    @NamedQuery(name = "Roles.findByIsRemoved", query = "SELECT r FROM Roles r WHERE r.isRemoved = :isRemoved"),
+    @NamedQuery(name = "Roles.findByMemo", query = "SELECT r FROM Roles r WHERE r.memo = :memo"),
+    @NamedQuery(name = "Roles.findByVersion", query = "SELECT r FROM Roles r WHERE r.version = :version")})
+public class Roles implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,9 +45,9 @@ public class ProjRoles implements Serializable {
     private Short id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 4)
-    @Column(name = "ACRONYM")
-    private String acronym;
+    @Size(min = 1, max = 2)
+    @Column(name = "TYPE")
+    private String type;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -54,31 +55,31 @@ public class ProjRoles implements Serializable {
     private String name;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "IS_REMOVED")
+    private boolean isRemoved;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "MEMO")
     private String memo;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "IS_REMOVED")
-    private boolean isRemoved;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "VERSION")
     private short version;
 
-    public ProjRoles() {
+    public Roles() {
     }
 
-    public ProjRoles(Short id) {
+    public Roles(Short id) {
         this.id = id;
     }
 
-    public ProjRoles(Short id, String acronym, String name, String memo, boolean isRemoved, short version) {
+    public Roles(Short id, String type, String name, boolean isRemoved, String memo, short version) {
         this.id = id;
-        this.acronym = acronym;
+        this.type = type;
         this.name = name;
-        this.memo = memo;
         this.isRemoved = isRemoved;
+        this.memo = memo;
         this.version = version;
     }
 
@@ -90,12 +91,12 @@ public class ProjRoles implements Serializable {
         this.id = id;
     }
 
-    public String getAcronym() {
-        return acronym;
+    public String getType() {
+        return type;
     }
 
-    public void setAcronym(String acronym) {
-        this.acronym = acronym;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -106,20 +107,20 @@ public class ProjRoles implements Serializable {
         this.name = name;
     }
 
-    public String getMemo() {
-        return memo;
-    }
-
-    public void setMemo(String memo) {
-        this.memo = memo;
-    }
-
     public boolean getIsRemoved() {
         return isRemoved;
     }
 
     public void setIsRemoved(boolean isRemoved) {
         this.isRemoved = isRemoved;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
     }
 
     public short getVersion() {
@@ -140,10 +141,10 @@ public class ProjRoles implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ProjRoles)) {
+        if (!(object instanceof Roles)) {
             return false;
         }
-        ProjRoles other = (ProjRoles) object;
+        Roles other = (Roles) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -152,7 +153,7 @@ public class ProjRoles implements Serializable {
 
     @Override
     public String toString() {
-        return "com.nsv.timentry.persistence.ProjRoles[ id=" + id + " ]";
+        return "com.nsv.timentry.persistence.Roles[ id=" + id + " ]";
     }
     
 }
