@@ -1,8 +1,9 @@
-//: com.nsv.timentry.entity: ProjectTask.java
+//: com.nsv.timentry.entity: Task.java
 package com.nsv.timentry.entity;
 
-import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,7 +13,10 @@ import javax.persistence.Column;
 import javax.persistence.TemporalType;
 import javax.persistence.Temporal;
 import javax.persistence.Version;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -21,27 +25,25 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 
 /**
- * Entity class mapping to table 'PROJ_TASKS'
+ * Entity class mapping to table 'TASKS'
  * 
- * @version 1.0.0 $ 2016-03-24 13:15 $
+ * @version 1.0.0 $ 2016-03-25 13:15 $
  */
 @Entity
-@Table( name = "PROJ_TASKS" )
-public final class ProjectTask implements Serializable {
+@Table( name = "TASKS" )
+public final class Task implements Serializable {
 
     
     private static final long serialVersionUID = 1L;
     
     
     private Integer id;
-    private int     projId;
     private String  name;
     private boolean isExtenal;
     
     private Date    startDate;
     private Date    closeDate;
     private int     estimation;
-    private short   phaseId;
     
     private String  memo;
     private int     creatorId;
@@ -51,6 +53,10 @@ public final class ProjectTask implements Serializable {
     private Date    tsUpdated;
     
     private short   version;
+    private Project project;
+    private Phase   phase;
+
+    private Collection<Employee> taskMembers;
     
     
     // ------------------------------------------------------------------------
@@ -63,16 +69,6 @@ public final class ProjectTask implements Serializable {
     
     public void setId( Integer id ) {
         this.id = id;
-    }
-    
-    @Column( name = "PROJ_ID", nullable = false )
-    @NotNull
-    public int getProjId() {
-        return this.projId;
-    }
-
-    public void setProjId( int projId ) {
-        this.projId = projId;
     }
     
     @Column( name = "NAME", nullable = false, length = 50 )
@@ -126,16 +122,6 @@ public final class ProjectTask implements Serializable {
 
     public void setEstimation( int estimation ) {
         this.estimation = estimation;
-    }
-    
-    @Column( name = "PHASE_ID", nullable = false )
-    @NotNull
-    public short getPhaseId() {
-        return this.phaseId;
-    }
-
-    public void setPhaseId( short phaseId ) {
-        this.phaseId = phaseId;
     }
     
     @Column( name = "MEMO", nullable = false, length = 200 )
@@ -202,10 +188,44 @@ public final class ProjectTask implements Serializable {
         this.version = version;
     }
     
+    // ------------------------------------------------------------------------
+    @ManyToOne
+    @JoinColumn( name = "PROJ_ID",  nullable = false )
+    public Project getProject() {
+        return this.project;
+    }
+
+    public void setProject( Project project ) {
+        this.project = project;
+    }
+    
+    @ManyToOne
+    @JoinColumn( name = "PHASE_ID", nullable = false )
+    public Phase getPhase() {
+        return this.phase;
+    }
+
+    public void setPhase( Phase phase ) {
+        this.phase = phase;
+    }
+    
+    @ManyToMany
+    @JoinTable( name = "TASK_EMPS", 
+        joinColumns        = @JoinColumn( name = "TASK_ID" ), 
+        inverseJoinColumns = @JoinColumn( name = "EMP_ID"  )
+    )
+    public Collection<Employee> getTaskMembers() {
+        return this.taskMembers;
+    }
+    
+    public void setTaskMembers( Collection<Employee> taskMembers ) {
+        this.taskMembers = taskMembers;
+    }
+    
 
     @Override
     public String toString() {
-        return "com.nsv.timentry.persistence.ProjectTask[ id=" + id + " ]";
+        return "com.nsv.timentry.persistence.Task[ id=" + id + " ]";
     }
     
     

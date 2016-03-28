@@ -1,6 +1,7 @@
 //: com.nsv.timentry.entity: DayLog.java
 package com.nsv.timentry.entity;
 
+import com.nsv.timentry.constant.LogStatus;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,10 +13,10 @@ import javax.persistence.Column;
 import javax.persistence.TemporalType;
 import javax.persistence.Temporal;
 import javax.persistence.Version;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -32,18 +33,22 @@ public class DayLog implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
+    
     private Integer id;
-    private int     weekLog;
+    // private int     weekLog;
     private Date    workDay;
     
     private short   empId;
-    private String  status;
-    
     private short   hours;
     private short   meal;
     private short   version;
     
+    private LogStatus  status;
     
+    private WeekLog weekLog;
+    
+    
+    // ------------------------------------------------------------------------
     @Id
     @GeneratedValue( strategy = IDENTITY )
     @Column( name = "ID" )
@@ -53,16 +58,6 @@ public class DayLog implements Serializable {
     
     public void setId( Integer id ) {
         this.id = id;
-    }
-    
-    @Column( name = "WEEK_LOG", nullable = false )
-    @NotNull
-    public int getWeekLog() {
-        return this.weekLog;
-    }
-    
-    public void setWeekLog( int weekLog ) {
-        this.weekLog = weekLog;
     }
     
     @Column( name = "WORK_DAY", nullable = false )
@@ -88,12 +83,11 @@ public class DayLog implements Serializable {
     
     @Column( name = "STATUS", nullable = false )
     @NotNull
-    @Size(min = 1, max = 2)
-    public String getStatus() {
+    public LogStatus getStatus() {
         return status;
     }
 
-    public void setStatus( String status ) {
+    public void setStatus( LogStatus status ) {
         this.status = status;
     }
     
@@ -126,6 +120,17 @@ public class DayLog implements Serializable {
     
     public void setVersion( short version ) {
         this.version = version;
+    }
+    
+    // ------------------------------------------------------------------------
+    @ManyToOne
+    @JoinColumn( name = "WEEK_LOG", nullable = false )
+    public WeekLog getWeekLog() {
+        return this.weekLog;
+    }
+    
+    public void setWeekLog( WeekLog weekLog ) {
+        this.weekLog = weekLog;
     }
     
     

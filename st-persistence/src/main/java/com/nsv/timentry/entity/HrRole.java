@@ -22,7 +22,7 @@ import static javax.persistence.FetchType.LAZY;
 /**
  * Entity class mapping to table 'HR_ROLES'
  * 
- * @version 1.0.0 $ 2016-03-24 19:14 $
+ * @version 1.0.0 $ 2016-03-25 19:14 $
  */
 @Entity
 @Table( name = "HR_ROLES" )
@@ -70,10 +70,9 @@ public final class HrRole implements Serializable {
         return this.isTVs;
     }
 
-    public void setIsTVs( boolean isTVs ) {
+    public void setTVs( boolean isTVs ) {
         this.isTVs = isTVs;
     }
-    
     
     @Column( name = "IS_REMOVED", nullable = false )
     @NotNull
@@ -81,7 +80,7 @@ public final class HrRole implements Serializable {
         return isRemoved;
     }
 
-    public void setIsRemoved( boolean isRemoved ) {
+    public void setRemoved( boolean isRemoved ) {
         this.isRemoved = isRemoved;
     }
 

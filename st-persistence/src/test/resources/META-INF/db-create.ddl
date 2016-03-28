@@ -315,34 +315,4 @@ CREATE TABLE `OFFICES` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
--- Add index and constraint conditions as following ----------------------------------------------------
-
-CREATE INDEX idx_DeptName_on_Departments ON DEPARTMENTS ( NAME     );
-CREATE INDEX idx_EmpName_on_Employee     ON EMPLOYEE    ( NAME     );
-CREATE INDEX idx_ProjNum_on_Projects     ON PROJECTS    ( PROJ_NUM );
-CREATE INDEX idx_ProjName_on_Projects    ON PROJECTS    ( NAME     );
-CREATE INDEX idx_TaskName_on_ProjTasks   ON PROJ_TASKS  ( NAME     );
-
-ALTER TABLE PROJ_TASKS      ADD CONSTRAINT fk_ProjID_on_ProjTasks        FOREIGN KEY ( PROJ_ID  )        REFERENCES PROJECTS    ( ID );
-ALTER TABLE PROJ_TASKS      ADD CONSTRAINT fk_PhaseID_on_ProjTasks       FOREIGN KEY ( PHASE_ID )        REFERENCES PHASES      ( ID );
-ALTER TABLE PROJ_TASKS      ADD CONSTRAINT fk_CreatorID_on_ProjTasks     FOREIGN KEY ( CREATOR_ID )      REFERENCES USERS       ( ID );
-ALTER TABLE PROJ_TASKS      ADD CONSTRAINT fk_LastUpdatedID_on_ProjTasks FOREIGN KEY ( LAST_UPDATED_BY ) REFERENCES USERS       ( ID );
-ALTER TABLE PROJ_EMPS       ADD CONSTRAINT fk_ProjID_on_ProjEmps         FOREIGN KEY ( PROJ_ID  )        REFERENCES PROJECTS    ( ID );
-ALTER TABLE PROJ_EMPS       ADD CONSTRAINT fk_EmpID_on_ProjEmps          FOREIGN KEY ( EMP_ID   )        REFERENCES EMPLOYEE    ( ID );
-ALTER TABLE TASK_EMPS       ADD CONSTRAINT fk_ProjID_on_TaskEmps         FOREIGN KEY ( TASK_ID  )        REFERENCES TASKS       ( ID );
-ALTER TABLE TASK_EMPS       ADD CONSTRAINT fk_EmpID_on_TaskEmps          FOREIGN KEY ( EMP_ID   )        REFERENCES EMPLOYEE    ( ID );
-ALTER TABLE WEEK_LOGS       ADD CONSTRAINT fk_EmpID_on_WeekLogs          FOREIGN KEY ( EMP_ID   )        REFERENCES EMPLOYEE    ( ID );
-ALTER TABLE DAY_LOGS        ADD CONSTRAINT fk_WeekLogID_on_DayLogs       FOREIGN KEY ( WEEK_LOG )        REFERENCES WEEK_LOGS   ( ID );
-ALTER TABLE LOG_ITEMS       ADD CONSTRAINT fk_DayLogID_on_LogItems       FOREIGN KEY ( DAY_LOG  )        REFERENCES DAY_LOGS    ( ID );
-ALTER TABLE LOG_ITEMS       ADD CONSTRAINT fk_ProjID_on_LogItems         FOREIGN KEY ( PROJ_ID  )        REFERENCES PROJECTS    ( ID );
-
-ALTER TABLE EMPLOYEES       ADD CONSTRAINT fk_DiplomaID_on_Employee      FOREIGN KEY ( DIPLOMA_ID )      REFERENCES DIPLOMA     ( ID );
-ALTER TABLE EMPLOYEES       ADD CONSTRAINT fk_DeptID_on_Employee         FOREIGN KEY ( DEPT_ID )         REFERENCES DEPARTMENTS ( ID );
-ALTER TABLE EMPLOYEES       ADD CONSTRAINT fk_HrRoleID_on_Employee       FOREIGN KEY ( HR_ROLE_ID )      REFERENCES HR_ROLES    ( ID );
-ALTER TABLE CERTIFICATE     ADD CONSTRAINT fk_EmpID_on_Certificate       FOREIGN KEY ( EMP_ID )          REFERENCES EMPLOYEE    ( ID );
-ALTER TABLE USERS           ADD CONSTRAINT fk_RoleID_on_Users            FOREIGN KEY ( ROLE_ID )         REFERENCES ROLES       ( ID );
-ALTER TABLE USERS           ADD CONSTRAINT fk_OfficeID_on_Users          FOREIGN KEY ( OFFICE_ID )       REFERENCES OFFICES     ( ID );
-ALTER TABLE PROJECTS        ADD CONSTRAINT fk_CreatorID_on_Projects      FOREIGN KEY ( CREATOR_ID )      REFERENCES USERS       ( ID );
-ALTER TABLE PROJECTS        ADD CONSTRAINT fk_LastUpdatedID_on_Projects  FOREIGN KEY ( LAST_UPDATED_BY ) REFERENCES USERS       ( ID );
-
 -- END OF THE DDL FILE ---------------------------------------------------------------------------------

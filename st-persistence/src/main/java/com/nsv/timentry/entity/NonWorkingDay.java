@@ -1,6 +1,7 @@
 // com.nsv.timentry.entity: NonWorkingDay.java
 package com.nsv.timentry.entity;
 
+import com.nsv.timentry.constant.WeekDay;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -39,7 +40,7 @@ public final class NonWorkingDay implements Serializable {
     
     private Date    holidayDate;
     private String  name;
-    private Day     type;
+    private WeekDay type;
     private short   week;
     
     private String  memo;
@@ -82,11 +83,11 @@ public final class NonWorkingDay implements Serializable {
 
     @Column( name = "TYPE", nullable = false )
     @NotNull
-    public Day getType() {
+    public WeekDay getType() {
         return type;
     }
 
-    public void setType( Day type ) {
+    public void setType( WeekDay type ) {
         this.type = type;
     }
 
@@ -125,7 +126,7 @@ public final class NonWorkingDay implements Serializable {
 
     @Override
     public String toString() {
-        return "com.nsv.timentry.persistence.Holiday[ id=" + id + " ]";
+        return "com.nsv.timentry.persistence.NonWorkingDay[ id=" + id + " ]";
     }
     
     

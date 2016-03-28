@@ -1,6 +1,7 @@
 //: com.nsv.timentry.entity: Department.java
 package com.nsv.timentry.entity;
 
+import java.util.Collection;
 import java.io.Serializable;
 
 import javax.persistence.Basic;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import javax.persistence.Column;
+import javax.persistence.OneToMany;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,7 +35,10 @@ public final class Department implements Serializable {
     private String name;
     private String memo;
     
+    private Collection<Employee> employees;
     
+    
+    // ------------------------------------------------------------------------
     @Id
     @GeneratedValue( strategy = IDENTITY )
     @Column( name = "ID" )
@@ -65,6 +70,15 @@ public final class Department implements Serializable {
     
     public void setMemo( String memo ) {
         this.memo = memo;
+    }
+    
+    @OneToMany( mappedBy = "dept" )
+    public Collection<Employee> getEmployees() {
+        return this.employees;
+    }
+    
+    public void setEmployees( Collection<Employee> employees ) {
+        this.employees = employees;
     }
     
     

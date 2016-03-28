@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.TemporalType;
 import javax.persistence.Temporal;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,14 +35,15 @@ public final class Certificate implements Serializable {
     
     private Short  id;
     private String certName;
-    
-    private short  empId;
     private String issuer;
     
-    private Date   issueDate;
-    private Date   expireDate;
+    private Date issueDate;
+    private Date expireDate;
+    
+    private Employee employee;
     
     
+    // ------------------------------------------------------------------------
     @Id
     @GeneratedValue( strategy = IDENTITY )
     @Column( name = "ID" )
@@ -61,16 +64,6 @@ public final class Certificate implements Serializable {
 
     public void setCertName(String certName) {
         this.certName = certName;
-    }
-    
-    @Column( name = "EMP_ID", nullable = false )
-    @NotNull
-    public short getEmpId() {
-        return this.empId;
-    }
-    
-    public void setEmpId( short empId ) {
-        this.empId = empId;
     }
     
     @Column( name = "ISSUER", nullable = false, length = 50 )
@@ -103,6 +96,16 @@ public final class Certificate implements Serializable {
 
     public void setExpireDate( Date expireDate ) {
         this.expireDate = expireDate;
+    }
+    
+    @ManyToOne
+    @JoinColumn( name = "EMP_ID", nullable = false )
+    public Employee getEmployee() {
+        return this.employee;
+    }
+    
+    public void setEmployee( Employee employee ) {
+        this.employee = employee;
     }
     
     

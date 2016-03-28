@@ -9,7 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Version;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,7 +22,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 /**
  * Entity class mapping to table 'USERS'
  * 
- * @version 1.0.0 $ 2016-03-24 14:46 $
+ * @version 1.0.0 $ 2016-03-25 14:46 $
  */
 @Entity
 @Table( name = "USERS" )
@@ -30,16 +32,15 @@ public final class User implements Serializable {
     private static final long serialVersionUID = 1L;
     
     
-    private Integer id;
-    private String  email;
-    private String  password;
+    private Integer  id;
+    private String   email;
+    private String   password;
     
-    private short   empId;
-    private short   roleId;
-    private boolean isRemoved;
-    
-    private short   officeId;
-    private short   version;
+    private boolean  isRemoved;
+    private short    version;
+    private Role     role;
+    private Office   office;
+    private Employee employee;
     
     
     // ------------------------------------------------------------------------
@@ -75,26 +76,6 @@ public final class User implements Serializable {
     public void setPassword(String password ) {
         this.password = password;
     }
-    
-    @Column( name = "EMP_ID", nullable = false )
-    @NotNull
-    public short getEmpId() {
-        return this.empId;
-    }
-
-    public void setEmpId( short empId ) {
-        this.empId = empId;
-    }
-
-    @Column( name = "ROLE_ID", nullable = false )
-    @NotNull
-    public short getRoleId() {
-        return this.roleId;
-    }
-
-    public void setRoleId( short roleId ) {
-        this.roleId = roleId;
-    }
 
     @Column( name = "IS_REMOVED", nullable = false )
     @NotNull
@@ -104,16 +85,6 @@ public final class User implements Serializable {
 
     public void setRemoved( boolean isRemoved ) {
         this.isRemoved = isRemoved;
-    }
-
-    @Column( name = "OFFICE_ID", nullable = false )
-    @NotNull
-    public short getOfficeId() {
-        return this.officeId;
-    }
-
-    public void setOfficeId( short officeId ) {
-        this.officeId = officeId;
     }
 
     @Column( name = "VERSION", nullable = false )
@@ -126,7 +97,37 @@ public final class User implements Serializable {
     public void setVersion( short version ) {
         this.version = version;
     }
+    
+    @OneToOne
+    @JoinColumn( name = "EMP_ID",    nullable = false )
+    public Employee getEmployee() {
+        return this.employee;
+    }
 
+    public void setEmployee( Employee employee ) {
+        this.employee = employee;
+    }
+    
+    @ManyToOne
+    @JoinColumn( name = "ROLE_ID",   nullable = false )
+    public Role getRole() {
+        return this.role;
+    }
+
+    public void setRole( Role role ) {
+        this.role = role;
+    }
+    
+    @ManyToOne
+    @JoinColumn( name = "OFFICE_ID", nullable = false )
+    public Office getOffice() {
+        return this.office;
+    }
+
+    public void setOffice( Office office ) {
+        this.office = office;
+    }
+    
     
     @Override
     public String toString() {

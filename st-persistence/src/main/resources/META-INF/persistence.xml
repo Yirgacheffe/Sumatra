@@ -8,5 +8,38 @@
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties/>
     </persistence-unit>
-
+    
+    <persistence-unit name="NsvTimentry-JSE" transaction-type="RESOURCE_LOCAL">
+        
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>com.nsv.timentry.converter.GenderConverter       </class>  
+        <class>com.nsv.timentry.converter.LogStatusConverter    </class>
+        <class>com.nsv.timentry.converter.LogTypeConverter      </class>
+        <class>com.nsv.timentry.converter.PoliticalTypeConverter</class>
+        <class>com.nsv.timentry.converter.ProjectStatusConverter</class>
+        <class>com.nsv.timentry.converter.WeekDayConverter      </class>
+        
+        <class>com.nsv.timentry.entity.Certificate  </class>
+        <class>com.nsv.timentry.entity.DayLog       </class>
+        <class>com.nsv.timentry.entity.Department   </class>
+        <class>com.nsv.timentry.entity.Diploma      </class>
+        <class>com.nsv.timentry.entity.Employee     </class>
+        <class>com.nsv.timentry.entity.HrRole       </class>
+        <class>com.nsv.timentry.entity.LogItem      </class>
+        <class>com.nsv.timentry.entity.Office       </class>
+        <class>com.nsv.timentry.entity.Phase        </class>
+        <class>com.nsv.timentry.entity.Project      </class>
+        <class>com.nsv.timentry.entity.Task         </class>
+        <class>com.nsv.timentry.entity.Role         </class>
+        <class>com.nsv.timentry.entity.User         </class>
+        <class>com.nsv.timentry.entity.WeekLog      </class>
+        <class>com.nsv.timentry.entity.NonWorkingDay</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver"   value="com.mysql.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.url"      value="jdbc:mysql://localhost:3306/NSV_TIMENTRY" />
+            <property name="javax.persistence.jdbc.user"     value="Oleg" />
+            <property name="javax.persistence.jdbc.password" value="Oleg#local1234" />
+        </properties>
+    </persistence-unit>
+    
 </persistence>

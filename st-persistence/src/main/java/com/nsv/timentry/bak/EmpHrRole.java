@@ -1,5 +1,5 @@
-//: com.nsv.timentry.entity: EmpHrRoles.java
-package com.nsv.timentry.entity;
+//: com.nsv.timentry.entity: EmpHrRole.java
+package com.nsv.timentry.bak;
 
 import java.io.Serializable;
 
@@ -7,7 +7,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.nsv.timentry.keys.EmpHrRolesPK;
+import com.nsv.timentry.keys.EmpHrRolePK;
 
 
 /**
@@ -17,22 +17,22 @@ import com.nsv.timentry.keys.EmpHrRolesPK;
  */
 @Entity
 @Table( name = "EMP_HR_ROLES" )
-public final class EmpHrRoles implements Serializable {
+public final class EmpHrRole implements Serializable {
 
     
     private static final long serialVersionUID = 1L;
     
     
     @EmbeddedId
-    protected EmpHrRolesPK empHrRolesPK;
+    protected EmpHrRolePK empHrRolePK;
     
     
-    public void setEmpHrRolesPK(EmpHrRolesPK empHrRolesPK) {
-        this.empHrRolesPK = empHrRolesPK;
+    public EmpHrRolePK getEmpHrRolePK() {
+        return empHrRolePK;
     }
-
-    public EmpHrRolesPK getEmpHrRolesPK() {
-        return empHrRolesPK;
+    
+    public void setEmpHrRolePK( EmpHrRolePK empHrRolePK ) {
+        this.empHrRolePK = empHrRolePK;
     }
 
     /*
@@ -42,7 +42,7 @@ public final class EmpHrRoles implements Serializable {
     public int hashCode() {
         
         int hash = 0;
-        hash += ( empHrRolesPK != null ? empHrRolesPK.hashCode() : 0 );
+        hash += ( empHrRolePK != null ? empHrRolePK.hashCode() : 0 );
         
         return hash;
         
@@ -55,18 +55,18 @@ public final class EmpHrRoles implements Serializable {
             return false;
         }
         
-        if ( !( other instanceof EmpHrRoles ) ) {
+        if ( !( other instanceof EmpHrRole ) ) {
             return false;
         }
         
-        EmpHrRoles that = ( EmpHrRoles ) other;
-        return this.empHrRolesPK.equals( that.getEmpHrRolesPK() );
+        EmpHrRole that = ( EmpHrRole ) other;
+        return this.empHrRolePK.equals( that.getEmpHrRolePK() );
         
     }
 
     @Override
     public String toString() {
-        return "com.nsv.timentry.persistence.EmpHrRoles[ empHrRolesPK=" + empHrRolesPK + " ]";
+        return "com.nsv.timentry.persistence.EmpHrRole[ empHrRolePK=" + empHrRolePK + " ]";
     }
     
     

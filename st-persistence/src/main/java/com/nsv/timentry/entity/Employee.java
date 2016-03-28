@@ -1,8 +1,9 @@
 //: com.nsv.timentry.entity: Employee.java
 package com.nsv.timentry.entity;
 
-import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import java.io.Serializable;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -13,22 +14,28 @@ import javax.persistence.Column;
 import javax.persistence.TemporalType;
 import javax.persistence.Temporal;
 import javax.persistence.Version;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.GenerationType.IDENTITY;
+
+import com.nsv.timentry.constant.Gender;
+import com.nsv.timentry.constant.PoliticalType;
 
 
 /**
- * Entity class mapping to table 'EMPLOYEE'
+ * Entity class mapping to table 'EMPLOYEES'
  * 
  * @version 1.0.0 $ 2016-03-24 11:58 $
  */
 @Entity
-@Table( name = "EMPLOYEE" )
+@Table( name = "EMPLOYEES" )
 public class Employee implements Serializable {
 
     
@@ -39,8 +46,6 @@ public class Employee implements Serializable {
     private String  email;
     private Date    onBoardDate;
     private Date    probationEndDate;
-    private short   deptId;
-    private short   diplomaId;
     private Date    lastWorkingDay;
     
     private String  graduationYear;
@@ -58,9 +63,15 @@ public class Employee implements Serializable {
     private short   version;
     
     // Special enum type for column 'GENDER' and 'POLITICAL_TYPE
-    private Gender         gender;
-    private PoliticalType  politicalType;
-
+    private Gender                  gender;
+    private PoliticalType           politicalType;
+    private Department              dept;
+    private Collection<Certificate> certificates;
+    private HrRole                  hrRole;
+    private Diploma                 diploma;
+    private Collection<Project>     projects;
+    private Collection<Task>        tasks;
+    
     
     // ------------------------------------------------------------------------
     @Id
@@ -116,16 +127,6 @@ public class Employee implements Serializable {
         this.onBoardDate = onBoardDate;
     }
     
-    @Column( name = "DEPT_ID", nullable = false )
-    @NotNull
-    public short getDeptId() {
-        return this.deptId;
-    }
-    
-    public void setDeptId( short deptId ) {
-        this.deptId = deptId;
-    }
-    
     @Column( name = "PROBATION_END", nullable = false )
     @NotNull
     @Temporal( TemporalType.DATE )
@@ -135,16 +136,6 @@ public class Employee implements Serializable {
     
     public void setProbationEndDate( Date probationEndDate ) {
         this.probationEndDate = probationEndDate;
-    }
-    
-    @Column( name = "DIPLOMA_ID", nullable = false )
-    @NotNull
-    public short getDiplomaId() {
-        return this.diplomaId;
-    }
-    
-    public void setDiplomaId( short diplomaId ) {
-        this.diplomaId = diplomaId;
     }
     
     @Column( name = "GRADUATION_YR", nullable = false, length = 4 )
@@ -294,6 +285,64 @@ public class Employee implements Serializable {
     
     public void setVersion( short version ) {
         this.version = version;
+    }
+    
+    // ------------------------------------------------------------------------
+    @OneToMany( mappedBy = "employee", fetch = LAZY )
+    public Collection<Certificate> getCertificates() {
+        return this.certificates;
+    }
+    
+    public void setCertificates( Collection<Certificate> certificates ) {
+        this.certificates = certificates;
+    }
+    
+    @ManyToOne
+    @JoinColumn( name = "HR_ROLE_ID", nullable = false )
+    public HrRole getHrRole() {
+        return this.hrRole;
+    }
+    
+    public void setHrRole( HrRole hrRole ) {
+        this.hrRole = hrRole;
+    }
+
+    @ManyToOne
+    @JoinColumn( name = "DEPT_ID", nullable = false )
+    public Department getDept() {
+        return this.dept;
+    }
+    
+    public void setDept( Department dept ) {
+        this.dept = dept;
+    }
+    
+    @ManyToOne
+    @JoinColumn( name = "DIPLOMA_ID", nullable = false )
+    public Diploma getDiploma() {
+        return this.diploma;
+    }
+    
+    public void setDiploma( Diploma diploma ) {
+        this.diploma = diploma;
+    }
+    
+    @ManyToMany( mappedBy = "projMembers" )
+    public Collection<Project> getProjects() {
+        return this.projects;
+    }
+    
+    public void setProjects( Collection<Project> projects ) {
+        this.projects = projects;
+    }
+    
+    @ManyToMany( mappedBy = "taskMembers" )
+    public Collection<Task> getTasks() {
+        return this.tasks;
+    }
+    
+    public void setTasks( Collection<Task> tasks ) {
+        this.tasks = tasks;
     }
     
     

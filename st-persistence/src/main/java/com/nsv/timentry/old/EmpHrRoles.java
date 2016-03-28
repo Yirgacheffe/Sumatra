@@ -14,7 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.nsv.timentry.keys.EmpHrRolesPK;
+import com.nsv.timentry.keys.EmpHrRolePK;
 
 
 /**
@@ -33,24 +33,24 @@ public class EmpHrRoles implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @EmbeddedId
-    protected EmpHrRolesPK empHrRolesPK;
+    protected EmpHrRolePK empHrRolesPK;
 
     public EmpHrRoles() {
     }
 
-    public EmpHrRoles(EmpHrRolesPK empHrRolesPK) {
+    public EmpHrRoles(EmpHrRolePK empHrRolesPK) {
         this.empHrRolesPK = empHrRolesPK;
     }
 
     public EmpHrRoles(short empId, short hrRoleId) {
-        this.empHrRolesPK = new EmpHrRolesPK(empId, hrRoleId);
+        this.empHrRolesPK = new EmpHrRolePK(empId, hrRoleId);
     }
 
-    public EmpHrRolesPK getEmpHrRolesPK() {
+    public EmpHrRolePK getEmpHrRolesPK() {
         return empHrRolesPK;
     }
 
-    public void setEmpHrRolesPK(EmpHrRolesPK empHrRolesPK) {
+    public void setEmpHrRolesPK(EmpHrRolePK empHrRolesPK) {
         this.empHrRolesPK = empHrRolesPK;
     }
 

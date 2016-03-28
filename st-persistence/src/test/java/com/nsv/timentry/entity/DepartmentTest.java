@@ -22,6 +22,7 @@ public class DepartmentTest {
 
     @After
     public void tearDown() {
+        if ( emf != null ) { emf.close(); }
     }
     
     @Test

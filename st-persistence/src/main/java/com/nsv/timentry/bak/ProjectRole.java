@@ -1,5 +1,5 @@
 //: com.nsv.timentry.entity: ProjectRole.java
-package com.nsv.timentry.entity;
+package com.nsv.timentry.bak;
 
 import java.io.Serializable;
 

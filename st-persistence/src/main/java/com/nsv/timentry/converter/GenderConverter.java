@@ -4,8 +4,8 @@ package com.nsv.timentry.converter;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-import com.nsv.timentry.entity.Gender;
-import static com.nsv.timentry.entity.Gender.*;
+import com.nsv.timentry.constant.Gender;
+import static com.nsv.timentry.constant.Gender.*;
 
 
 /**
@@ -14,7 +14,7 @@ import static com.nsv.timentry.entity.Gender.*;
  * @version 1.0.0 $ 2016-03-24 13:30 $
  */
 @Converter( autoApply = true )
-public class GenderConverter implements AttributeConverter<Gender, String> {
+public class GenderConverter implements AttributeConverter< Gender, String > {
 
     
     @Override
@@ -24,13 +24,13 @@ public class GenderConverter implements AttributeConverter<Gender, String> {
             case FEMALE: return "F";
             case MALE:   return "M";
             case OTHERS: return "O";
+            
             default:
                 throw new IllegalArgumentException( "Unknow Gender type: " + gender );
         }
         
     }
 
-    
     @Override
     public Gender convertToEntityAttribute( String dbData ) {
         
@@ -38,6 +38,7 @@ public class GenderConverter implements AttributeConverter<Gender, String> {
             case "F": return FEMALE;
             case "M": return MALE;
             case "O": return OTHERS;
+            
             default:
                 throw new IllegalArgumentException( "Unknow Gender data: " + dbData );
         }

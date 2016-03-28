@@ -70,9 +70,23 @@ subprojects { project ->
       java.srcDir       'src/test/java'
       resources.srcDir  'src/test/resources'
     }
+    /*
+    integTest {
+      java.srcDir       'src/integTest/java'
+      resources.srcDir  'src/integTest/resources'
+      compileClasspath = sourceSets.main.output + configurations.testRuntime
+      runtimeClasspath = output + compileClasspath
+    }
+    */
   }
-
+  /*
+  task integTest( type: Test ) {
+    description = "Run the integration test."
+    group = 'verification'
+    testClassesDir = sourceSets.integTest.output.classesDir
+    classpath      = sourceSets.integTest.runtimeClasspath
+  }
+  */
   check.dependsOn test
 
 } //:~
-

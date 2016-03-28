@@ -1,22 +1,22 @@
-//: com.nsv.timentry.enrity: Day.java
-package com.nsv.timentry.entity;
+//: com.nsv.timentry.enrity: Gender.java
+package com.nsv.timentry.constant;
 
 
 /**
- * Enumeration type for column 'TYPE', in table NON_WORKINGDAY
+ * Enumeration type for column 'GENDER'
  * 
- * @version 1.0.0 $ 2016-03-24 17:01 $
+ * @version 1.0.0 $ 2016-03-24 13:02 $
  */
-public enum Day {
+public enum Gender {
     
     
-    NORMAL( 'N' ), WEEKEND( 'W' ), HOLIDAY( 'H' );
+    FEMALE( 'F' ), MALE( 'M' ), OTHERS( 'O' );
     
     
     // Single char used in DB
     private final char value;
     
-    private Day( char v ) {
+    private Gender( char v ) {
         this.value = v;
     }
     
@@ -31,7 +31,7 @@ public enum Day {
     
     @Override
     public String toString() {
-        return "Day type as String: [" + asString() + "]";
+        return "Gender type as String: [" + asString() + "]";
     }
     
     

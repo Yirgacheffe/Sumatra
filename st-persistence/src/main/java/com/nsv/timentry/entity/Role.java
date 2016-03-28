@@ -20,7 +20,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 /**
  * Entity class mapping to table 'ROLES'
  * 
- * @version 1.0.0 $ 2016-03-24 14:43 $
+ * @version 1.0.0 $ 2016-03-25 14:43 $
  */
 @Entity
 @Table( name = "ROLES" )

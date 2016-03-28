@@ -1,6 +1,7 @@
 //: com.nsv.timentry.entity: LogItem.java
 package com.nsv.timentry.entity;
 
+import com.nsv.timentry.constant.LogType;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.TemporalType;
 import javax.persistence.Temporal;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,14 +35,19 @@ public final class LogItem implements Serializable {
     
     
     private Integer   id;
-    private String    type;
+    private LogType   type;
     private String    content;
     private short     hours;
+    
     private Date      startOn;
     private Date      closeOn;
     private Character place;
+    private DayLog    dayLog;
+    private Project   project;
+    private Task      task;
     
     
+    // ------------------------------------------------------------------------
     @Id
     @GeneratedValue( strategy = IDENTITY )
     @Column( name = "ID" )
@@ -53,11 +61,11 @@ public final class LogItem implements Serializable {
     
     @Column( name = "TYPE", nullable = false )
     @NotNull
-    public String getType() {
+    public LogType getType() {
         return this.type;
     }
 
-    public void setType( String type ) {
+    public void setType( LogType type ) {
         this.type = type;
     }
     
@@ -110,11 +118,43 @@ public final class LogItem implements Serializable {
     public void setPlace( Character place ) {
         this.place = place;
     }
+    
+    // ------------------------------------------------------------------------
+    @ManyToOne
+    @JoinColumn( name = "DAY_LOG", nullable = false )
+    public DayLog getDayLog() {
+        return this.dayLog;
+    }
+
+    public void setDayLog( DayLog dayLog ) {
+        this.dayLog = dayLog;
+    }
+    
+    @ManyToOne
+    @JoinColumn( name = "PROJ_ID", nullable = false )
+    public Project getProject() {
+        return this.project;
+    }
+
+    public void setProject( Project project ) {
+        this.project = project;
+    }
+    
+    @ManyToOne
+    @JoinColumn( name = "TASK_ID", nullable = true  )
+    public Task getTask() {
+        return this.task;
+    }
+
+    public void setTask( Task task ) {
+        this.task = task;
+    }
 
 
     @Override
     public String toString() {
         return "com.nsv.timentry.persistence.LogItem[ id=" + id + " ]";
     }
+    
     
 } //:~

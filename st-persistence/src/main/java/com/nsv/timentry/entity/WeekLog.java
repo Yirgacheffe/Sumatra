@@ -1,6 +1,7 @@
 //: com.nsv.timentry.entity: WeekLog.java
 package com.nsv.timentry.entity;
 
+import java.util.Collection;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -9,18 +10,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Version;
-
+import javax.persistence.OneToMany;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import static javax.persistence.GenerationType.IDENTITY;
+
+import com.nsv.timentry.constant.LogStatus;
 
 
 /**
  * Entity class mapping to table 'WEEK_LOGS'
  * 
- * @version 1.0.0 $ 2016-03-24 15:12 $
+ * @version 1.0.0 $ 2016-03-25 15:12 $
  */
 @Entity
 @Table( name = "WEEK_LOGS" )
@@ -30,14 +31,14 @@ public final class WeekLog implements Serializable {
     private static final long serialVersionUID = 1L;
     
     
-    private Integer id;
+    private Integer            id;
+    private short              empId;
+    private short              year;
+    private short              week;
     
-    private short   empId;
-    private short   year;
-    private short   week;
-    private String  status;
-    
-    private short   version;
+    private short              version;
+    private LogStatus          status;
+    private Collection<DayLog> dayLogs;
     
     
     // ------------------------------------------------------------------------
@@ -84,12 +85,11 @@ public final class WeekLog implements Serializable {
 
     @Column( name = "STATUS", nullable = false )
     @NotNull
-    @Size( min = 1, max = 2 )
-    public String getStatus() {
+    public LogStatus getStatus() {
         return this.status;
     }
 
-    public void setStatus( String status ) {
+    public void setStatus( LogStatus status ) {
         this.status = status;
     }
     
@@ -102,6 +102,16 @@ public final class WeekLog implements Serializable {
     
     public void setVersion( short version ) {
         this.version = version;
+    }
+    
+    // ------------------------------------------------------------------------
+    @OneToMany( mappedBy = "weekLog" )
+    public Collection<DayLog> getDayLogs() {
+        return this.dayLogs;
+    }
+    
+    public void setDayLogs( Collection<DayLog> dayLogs ) {
+        this.dayLogs = dayLogs;
     }
     
 

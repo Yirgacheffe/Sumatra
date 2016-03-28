@@ -1,23 +1,19 @@
 //: com.nsv.timentry.entity: Project.java
 package com.nsv.timentry.entity;
 
-import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.TemporalType;
-import javax.persistence.Temporal;
-import javax.persistence.Version;
-
+import javax.persistence.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.FetchType.LAZY;
+
+import com.nsv.timentry.constant.ProjectStatus;
 
 
 /**
@@ -33,21 +29,25 @@ public final class Project implements Serializable {
     private static final long serialVersionUID = 1L;
     
     
-    private Integer id;
-    private String  projNum;
-    private String  name;
-    private Date    startDate;
-    private Date    closeDate;
-    private boolean isProj;
-    private int     budget;
-    private String  status;
-    private String  memo;
-    private int     creatorId;
-    private int     lastUpdatedBy;
-    private Date    tsCreated;
-    private Date    tsUpdated;
+    private Integer       id;
+    private String        projNum;
+    private String        name;
     
-    private short   version;
+    private Date          startDate;
+    private Date          closeDate;
+    private boolean       isProj;
+    private int           budget;
+    private ProjectStatus status;
+    private String        memo;
+    
+    private int           creatorId;
+    private int           lastUpdatedBy;
+    private Date          tsCreated;
+    private Date          tsUpdated;
+    private short         version;
+    
+    private Collection<Task>     tasks;
+    private Collection<Employee> projMembers;
     
     
     // ------------------------------------------------------------------------
@@ -64,7 +64,7 @@ public final class Project implements Serializable {
 
     @Column( name = "PROJ_NUM", nullable = false, length = 50 )
     @NotNull
-    @Size( min = 1, max = 50 )    
+    @Size( min = 1, max = 50 )
     public String getProjNum() {
         return projNum;
     }
@@ -75,7 +75,7 @@ public final class Project implements Serializable {
     
     @Column( name = "NAME", nullable = false, length = 50 )
     @NotNull
-    @Size( min = 1, max = 50 )    
+    @Size( min = 1, max = 50 )
     public String getName() {
         return this.name;
     }
@@ -106,7 +106,7 @@ public final class Project implements Serializable {
     }
     
     @Column( name = "IS_PROJ", nullable = false )
-    @NotNull    
+    @NotNull
     public boolean isProj() {
         return isProj;
     }
@@ -127,12 +127,11 @@ public final class Project implements Serializable {
 
     @Column( name = "STATUS", nullable = false )
     @NotNull
-    @Size( min = 1, max = 2 )    
-    public String getStatus() {
+    public ProjectStatus getStatus() {
         return this.status;
     }
 
-    public void setStatus( String status ) {
+    public void setStatus( ProjectStatus status ) {
         this.status = status;
     }
 
@@ -198,6 +197,29 @@ public final class Project implements Serializable {
     
     public void setVersion( short version ) {
         this.version = version;
+    }
+    
+    // ------------------------------------------------------------------------
+    @OneToMany( mappedBy = "project", fetch = LAZY )
+    public Collection<Task> getTasks() {
+        return this.tasks;
+    }
+    
+    public void setTasks( Collection<Task> tasks ) {
+        this.tasks = tasks;
+    }
+    
+    @ManyToMany
+    @JoinTable( name = "PROJ_EMPS", 
+        joinColumns        = @JoinColumn( name = "PROJ_ID" ),
+        inverseJoinColumns = @JoinColumn( name = "EMP_ID"  )
+    )
+    public Collection<Employee> getProjMembers() {
+        return this.projMembers;
+    }
+    
+    public void setProjMembers( Collection<Employee> projMembers ) {
+        this.projMembers = projMembers;
     }
     
 

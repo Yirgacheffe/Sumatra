@@ -4,8 +4,8 @@ package com.nsv.timentry.converter;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-import com.nsv.timentry.entity.PoliticalType;
-import static com.nsv.timentry.entity.PoliticalType.*;
+import com.nsv.timentry.constant.PoliticalType;
+import static com.nsv.timentry.constant.PoliticalType.*;
 
 
 /**
@@ -31,7 +31,6 @@ public class PoliticalTypeConverter implements AttributeConverter<PoliticalType,
         
     }
 
-    
     @Override
     public PoliticalType convertToEntityAttribute( String dbData ) {
         
@@ -39,6 +38,7 @@ public class PoliticalTypeConverter implements AttributeConverter<PoliticalType,
             case "R": return RESIDENCE;
             case "P": return PARTY;
             case "L": return LEAGUE;
+            
             default:
                 throw new IllegalArgumentException( "Unknow Political data: " + dbData );
         }

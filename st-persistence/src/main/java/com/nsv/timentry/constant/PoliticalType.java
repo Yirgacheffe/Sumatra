@@ -1,11 +1,11 @@
 //: com.nsv.timentry.entity: PoliticalType.java
-package com.nsv.timentry.entity;
+package com.nsv.timentry.constant;
 
 
 /**
  * Enumeration type for column 'POLITICAL_TYPE'
  * 
- * @version 1.0.0 $ 2016-03-24 16:02 $
+ * @version 1.0.0 $ 2016-03-25 16:02 $
  */
 public enum PoliticalType {
     

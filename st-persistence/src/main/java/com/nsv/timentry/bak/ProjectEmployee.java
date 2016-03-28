@@ -1,5 +1,5 @@
 //: com.nsv.timentry.entity: ProjectEmployee.java
-package com.nsv.timentry.entity;
+package com.nsv.timentry.bak;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,7 +20,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 /**
  * Entity class mapping to table 'PROJ_EMPS'
  * 
- * @version 1.0.0 $ 2016-03-24 10:54 $
+ * @version 1.0.0 $ 2016-03-25 10:54 $
  */
 @Entity
 @Table( name = "PROJ_EMPS" )

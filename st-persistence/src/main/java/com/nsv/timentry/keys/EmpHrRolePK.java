@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
  * @version 1.0.0 $ 2016-03-24 18:17 $
  */
 @Embeddable
-public final class EmpHrRolesPK implements Serializable {
+public final class EmpHrRolePK implements Serializable {
 
     
     private static final long serialVersionUID = 1L;
@@ -25,11 +25,11 @@ public final class EmpHrRolesPK implements Serializable {
     private short hrRoleId;
     
     
-    public EmpHrRolesPK() {
+    public EmpHrRolePK() {
         // Keep this default constructor...
     }
     
-    public EmpHrRolesPK( short empId, short hrRoleId ) {
+    public EmpHrRolePK( short empId, short hrRoleId ) {
         this.empId    = empId;
         this.hrRoleId = hrRoleId;
     }
@@ -72,11 +72,11 @@ public final class EmpHrRolesPK implements Serializable {
             return false;
         }
         
-        if ( !( other instanceof EmpHrRolesPK ) ) {
+        if ( !( other instanceof EmpHrRolePK ) ) {
             return false;
         }
         
-        EmpHrRolesPK that = ( EmpHrRolesPK ) other;
+        EmpHrRolePK that = ( EmpHrRolePK ) other;
         return that.getEmpId() == empId && hrRoleId == that.getHrRoleId();
         
     }
