@@ -4,7 +4,6 @@
  * Gradle build script followed by convention over configuration rules
  * Currently we don't have any comments here, just a place holder that will change in the future
  */
-apply plugin: 'eclipse'
 apply plugin: 'idea'
 
 apply from: './libraries.gradle'
@@ -36,11 +35,10 @@ subprojects { project ->
 
   apply plugin: 'java'
   apply plugin: 'idea'
-  apply plugin: 'eclipse'
 
-  apply from: "${gradleScriptDir}/findbugs.gradle"
-  apply from: "${gradleScriptDir}/jacoco.gradle"
-  apply from: "${gradleScriptDir}/checkstyle.gradle"
+  // apply from: "${gradleScriptDir}/findbugs.gradle"
+  // apply from: "${gradleScriptDir}/jacoco.gradle"
+  // apply from: "${gradleScriptDir}/checkstyle.gradle"
 
   defaultTasks 'build'
   buildDir     'target'

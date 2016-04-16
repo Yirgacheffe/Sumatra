@@ -27,10 +27,10 @@ import com.nsv.timentry.constant.LogStatus;
 @Table( name = "WEEK_LOGS" )
 public final class WeekLog implements Serializable {
 
-    
-    private static final long serialVersionUID = 1L;
-    
-    
+
+    private static final long serialVersionUID = -4332610389317448242L;
+
+
     private Integer            id;
     private short              empId;
     private short              year;

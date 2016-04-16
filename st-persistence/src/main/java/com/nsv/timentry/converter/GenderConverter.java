@@ -26,7 +26,7 @@ public class GenderConverter implements AttributeConverter< Gender, String > {
             case OTHERS: return "O";
             
             default:
-                throw new IllegalArgumentException( "Unknow Gender type: " + gender );
+                throw new IllegalArgumentException( "Unknown Gender type: " + gender );
         }
         
     }
@@ -40,7 +40,7 @@ public class GenderConverter implements AttributeConverter< Gender, String > {
             case "O": return OTHERS;
             
             default:
-                throw new IllegalArgumentException( "Unknow Gender data: " + dbData );
+                throw new IllegalArgumentException( "Unknown Gender data: " + dbData );
         }
         
     }

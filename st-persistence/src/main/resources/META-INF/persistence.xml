@@ -26,14 +26,16 @@
         <class>com.nsv.timentry.entity.Employee     </class>
         <class>com.nsv.timentry.entity.HrRole       </class>
         <class>com.nsv.timentry.entity.LogItem      </class>
+        <class>com.nsv.timentry.entity.NonWorkingDay</class>
         <class>com.nsv.timentry.entity.Office       </class>
         <class>com.nsv.timentry.entity.Phase        </class>
         <class>com.nsv.timentry.entity.Project      </class>
         <class>com.nsv.timentry.entity.Task         </class>
+        <class>com.nsv.timentry.entity.ProjectRole  </class>
         <class>com.nsv.timentry.entity.Role         </class>
         <class>com.nsv.timentry.entity.User         </class>
         <class>com.nsv.timentry.entity.WeekLog      </class>
-        <class>com.nsv.timentry.entity.NonWorkingDay</class>
+        
         <properties>
             <property name="javax.persistence.jdbc.driver"   value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url"      value="jdbc:mysql://localhost:3306/NSV_TIMENTRY" />

@@ -2,17 +2,7 @@
 package com.nsv.timentry.entity;
 
 import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.Version;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.ManyToOne;
-
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -26,32 +16,37 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @Entity
 @Table( name = "USERS" )
+@NamedQueries({
+    @NamedQuery( name = "User.findById",    query = "SELECT u FROM User u WHERE u.id = :id"       ),
+    @NamedQuery( name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email" )
+})
 public final class User implements Serializable {
 
+
+    private static final long serialVersionUID = -1746953199967576609L;
+
+    private Short     id;
+    private String    email;
+    private String    password;
     
-    private static final long serialVersionUID = 1L;
+    private Boolean   removed;
+    private short     version;
+
+    private Role      role;
+    private Office    office;
+    private Employee  employee;
+    private Employee  manager;
     
     
-    private Integer  id;
-    private String   email;
-    private String   password;
-    
-    private boolean  isRemoved;
-    private short    version;
-    private Role     role;
-    private Office   office;
-    private Employee employee;
-    
-    
-    // ------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------
     @Id
     @GeneratedValue( strategy = IDENTITY )
     @Column( name = "ID" )
-    public Integer getId() {
+    public Short getId() {
         return this.id;
     }
     
-    public void setId( Integer id ) {
+    public void setId( Short id ) {
         this.id = id;
     }
 
@@ -79,12 +74,12 @@ public final class User implements Serializable {
 
     @Column( name = "IS_REMOVED", nullable = false )
     @NotNull
-    public boolean isRemoved() {
-        return this.isRemoved;
+    public Boolean isRemoved() {
+        return this.removed;
     }
 
-    public void setRemoved( boolean isRemoved ) {
-        this.isRemoved = isRemoved;
+    public void setRemoved( Boolean removed ) {
+        this.removed = removed;
     }
 
     @Column( name = "VERSION", nullable = false )
@@ -107,7 +102,17 @@ public final class User implements Serializable {
     public void setEmployee( Employee employee ) {
         this.employee = employee;
     }
-    
+
+    @ManyToOne
+    @JoinColumn( name = "MGR_ID", nullable = false )
+    public Employee getManager() {
+        return this.manager;
+    }
+
+    public void setManager( Employee manager ) {
+        this.manager = manager;
+    }
+
     @ManyToOne
     @JoinColumn( name = "ROLE_ID",   nullable = false )
     public Role getRole() {
@@ -127,8 +132,8 @@ public final class User implements Serializable {
     public void setOffice( Office office ) {
         this.office = office;
     }
-    
-    
+
+
     @Override
     public String toString() {
         return "com.nsv.timentry.persistence.User[ id=" + id + " ]";

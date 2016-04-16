@@ -35,7 +35,6 @@ public class DayLog implements Serializable {
     
     
     private Integer id;
-    // private int     weekLog;
     private Date    workDay;
     
     private short   empId;

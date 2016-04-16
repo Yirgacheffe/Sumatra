@@ -40,7 +40,7 @@ public final class Office implements Serializable {
     private String  memo;
     
     
-    // ------------------------------------------------------------------------    
+    // ------------------------------------------------------------------------
     @Id
     @GeneratedValue( strategy = IDENTITY )
     @Column( name = "ID" )

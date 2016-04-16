@@ -12,6 +12,7 @@
         <class>com.nsv.timentry.converter.PoliticalTypeConverter</class>
         <class>com.nsv.timentry.converter.ProjectStatusConverter</class>
         <class>com.nsv.timentry.converter.WeekDayConverter      </class>
+        <class>com.nsv.timentry.converter.BooleanConverter      </class>
         
         <class>com.nsv.timentry.entity.Certificate  </class>
         <class>com.nsv.timentry.entity.DayLog       </class>
@@ -25,6 +26,7 @@
         <class>com.nsv.timentry.entity.Phase        </class>
         <class>com.nsv.timentry.entity.Project      </class>
         <class>com.nsv.timentry.entity.Task         </class>
+        <class>com.nsv.timentry.entity.ProjectRole  </class>
         <class>com.nsv.timentry.entity.Role         </class>
         <class>com.nsv.timentry.entity.User         </class>
         <class>com.nsv.timentry.entity.WeekLog      </class>
@@ -34,11 +36,12 @@
             <property name="javax.persistence.jdbc.url"      value="jdbc:mysql://localhost:3306/NSV_TIMENTRY" />
             <property name="javax.persistence.jdbc.user"     value="Oleg" />
             <property name="javax.persistence.jdbc.password" value="Oleg#local1234" />
-            
-            <!--property name="javax.persistence.schema-generation.database.action"              value="drop-and-create"           />
+            <!--
+            <property name="javax.persistence.schema-generation.database.action"              value="drop-and-create"           />
             <property name="javax.persistence.schema-generation.scripts.drop-script-source"   value="META-INF/db-drop.ddl"      />
             <property name="javax.persistence.sql-load-script-source"                         value="META-INF/db-load_data.ddl" />
-            <property name="javax.persistence.schema-generation.scripts.create-script-source" value="META-INF/db-create.ddl"    / -->
+            <property name="javax.persistence.schema-generation.scripts.create-script-source" value="META-INF/db-create.ddl"    />
+            -->
         </properties>
     
     </persistence-unit>

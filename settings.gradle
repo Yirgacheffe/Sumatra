@@ -5,12 +5,11 @@
 rootProject.name = 'Sumatra'
 
 // include 'st-const'
-// include 'st-dto'
-// include 'st-ejb'
-// include 'st-entity'
+include 'st-dto'
+include 'st-service'
 // include 'st-jobs'
 // include 'st-util'
-// include 'st-web'
+include 'st-web'
 include 'st-persistence'
 
 rootProject.children.each { project ->

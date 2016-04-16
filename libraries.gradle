@@ -34,7 +34,9 @@ ext {
     
     // derby database
     derby:                        "org.apache.derby:derby:10.12.1.1",
-    derby_client:                 "org.apache.derby:derbyclient:10.12.1.1"
+    derby_client:                 "org.apache.derby:derbyclient:10.12.1.1", 
+    
+    joda_time:                    "joda-time:joda-time:2.9.3"
         
   ]
 

@@ -33,10 +33,10 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table( name = "TASKS" )
 public final class Task implements Serializable {
 
-    
-    private static final long serialVersionUID = 1L;
-    
-    
+
+    private static final long serialVersionUID = 3805611818810592364L;
+
+    // ------------------------------------------------------------------------
     private Integer id;
     private String  name;
     private boolean isExtenal;

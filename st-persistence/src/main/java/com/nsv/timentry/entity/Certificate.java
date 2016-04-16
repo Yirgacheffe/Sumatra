@@ -26,7 +26,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  * @version 1.0.0 $ 2016-03-24 17:10 $
  */
 @Entity
-@Table( name = "DAY_LOGS" )
+@Table( name = "CERTIFICATES" )
 public final class Certificate implements Serializable {
     
     

@@ -5,19 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.io.Serializable;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.TemporalType;
-import javax.persistence.Temporal;
-import javax.persistence.Version;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -36,6 +24,14 @@ import com.nsv.timentry.constant.PoliticalType;
  */
 @Entity
 @Table( name = "EMPLOYEES" )
+@NamedQueries({
+    @NamedQuery( name = "Employee.findByNameAndEmailWithLike", query = "SELECT e FROM Employee e "
+                                                                     + "WHERE e.email like :email "
+                                                                     + "AND e.name like :name "
+                                                                     + "AND e.user.removed = :removed order by e.name" ),
+    @NamedQuery( name = "Employee.findById",    query = "SELECT e FROM Employee e WHERE e.id = :id"       ),
+    @NamedQuery( name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email" )
+})
 public class Employee implements Serializable {
 
     
@@ -56,7 +52,7 @@ public class Employee implements Serializable {
     
     private boolean isMarried;
     private String  residence;
-    private boolean isArgicultural;
+    private boolean isAgricultural;
     private String  idCardNum;
     private String  archiveFile;
     private String  memo;
@@ -71,6 +67,7 @@ public class Employee implements Serializable {
     private Diploma                 diploma;
     private Collection<Project>     projects;
     private Collection<Task>        tasks;
+    private User                    user;
     
     
     // ------------------------------------------------------------------------
@@ -171,9 +168,7 @@ public class Employee implements Serializable {
         this.major = major;
     }
     
-    @Column( name = "POSITION", nullable = false, length = 100 )
-    @NotNull
-    @Size( min = 1, max = 100 )
+    @Column( name = "POSITION", nullable = true, length = 100)
     public String getPosition() {
         return this.position;
     }
@@ -224,14 +219,14 @@ public class Employee implements Serializable {
         this.residence = residence;
     }
 
-    @Column( name = "RESIDENCE_TYPE", nullable = false )
+    @Column( name = "IS_AGRICULTURAL", nullable = false )
     @NotNull
-    public boolean isArgicultural() {
-        return this.isArgicultural;
+    public boolean isAgricultural() {
+        return this.isAgricultural;
     }
     
-    public void setArgicultural( boolean isArgicultural ) {
-        this.isArgicultural = isArgicultural;
+    public void setAgricultural( boolean isAgricultural ) {
+        this.isAgricultural = isAgricultural;
     }
 
     @Column( name = "IDCARD_NUM", nullable = false, length = 18 )
@@ -344,7 +339,15 @@ public class Employee implements Serializable {
     public void setTasks( Collection<Task> tasks ) {
         this.tasks = tasks;
     }
-    
+
+    @OneToOne( mappedBy = "employee" )
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser( User user ) {
+        this.user = user;
+    }
     
     @Override
     public String toString() {

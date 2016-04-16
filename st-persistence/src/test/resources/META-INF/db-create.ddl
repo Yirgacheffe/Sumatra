@@ -86,7 +86,7 @@ CREATE TABLE `EMPLOYEES` (
   LAST_WORKING_DAY      DATE,
   ARCHIVE_FILE          VARCHAR(150),
   MEMO                  VARCHAR(150),
-  VERSION               SMALLINT                  NOT NULL,
+  VERSION               SMALLINT                  NOT NULL DEFAULT  1,
   PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
