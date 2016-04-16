@@ -1,16 +1,16 @@
-//: com.nsv.timentry.service: UserFacade.java
+//: com.nsv.timentry.service: ProjectFacade.java
 package com.nsv.timentry.service;
 
 import javax.ejb.Remote;
 
 
 /**
- * User bean remote interface
+ * Project bean remote interface
  *
- * @version 1.0.0 $ 2016-04-04 02:15 $
+ * @version 1.0.0 $ 2016-04-16 15:32 $
  */
 @Remote
-public interface UserFacade {
+public interface ProjectFacade {
 
     // Place holder, put methods here ..........................
 

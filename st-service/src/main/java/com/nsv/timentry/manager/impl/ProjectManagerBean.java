@@ -67,7 +67,7 @@ public class ProjectManagerBean extends GenericManagerBean< Project, Integer > i
     }
 
     @Override
-    public boolean createBySQL(Object[] dbOrderedParams) {
+    public boolean createBySQL( Object[] dbOrderedParams ) {
 
         Query q = em.createNativeQuery( SQL_INSERT );
 
