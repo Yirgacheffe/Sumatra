@@ -1,6 +1,8 @@
 //: com.nsv.timentry.service.impl: UserFacadeBean.java
 package com.nsv.timentry.service.impl;
 
+import java.text.MessageFormat;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -10,16 +12,18 @@ import javax.persistence.EntityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nsv.timentry.manager.UserManagerLocal;
-import com.nsv.timentry.service.UserFacade;
-import com.nsv.timentry.service.UserFacadeLocal;
-
 import com.nsv.timentry.entity.Employee;
 import com.nsv.timentry.entity.User;
 import com.nsv.timentry.entity.Role;
 import com.nsv.timentry.entity.Office;
 
 import com.nsv.timentry.dto.UserDTO;
+
+import com.nsv.timentry.manager.UserManagerLocal;
+import com.nsv.timentry.service.UserFacade;
+import com.nsv.timentry.service.UserFacadeLocal;
+
+import com.nsv.timentry.MailMessageSender;
 
 
 /**
@@ -37,7 +41,11 @@ public class UserFacadeBean implements UserFacade, UserFacadeLocal {
     private EntityManager em;
 
     @EJB
-    private UserManagerLocal userMgr;
+    private UserManagerLocal  userMgr;
+
+    @EJB
+    private MailMessageSender jmsMailSender;
+
 
     @Override
     public UserDTO login( String email, String password ) {
@@ -70,22 +78,52 @@ public class UserFacadeBean implements UserFacade, UserFacadeLocal {
 
     }
 
+
     @Override
-    public boolean resetPassword( String email,
-                                  String password, String newPassword ) {
+    public boolean resetPassword( String email, String password, String secretKey ) {
 
         User user = checkUserStatusThenGetIfOK( email, password );
 
         if ( user == null ) {
             return false;
         } else {
-            user.setPassword( newPassword );
+            user.setPassword( secretKey );
             userMgr.update( user );
 
-            return true;    // Reset password OK? We hope so...
+            return true;    // Reset password OK? We hope so.....
         }
 
     }
+
+
+    @Override
+    public boolean sendPasswordResetVerificationMail( String email ) {
+
+        User user = userMgr.findByEmail( email );
+
+        if ( user.isRemoved() ) {
+            logger.info(
+                "The user with email {} was removed.",
+            new Object[] { email } );
+
+            return false;
+        }
+
+        // TODO: Mail message need to be get from the external files
+        String password = user.getPassword();
+
+        String htmlTemplate = "";
+        String content = MessageFormat.format( htmlTemplate, email, password );
+
+        String from    = "timentry.admin@nsv.com.cn";
+        String to      = email;
+        String subject = "Password reset verification";
+
+        jmsMailSender.createMessageThenSend( from, to, subject, content );
+        return true;
+
+    }
+
 
     private User checkUserStatusThenGetIfOK( String email, String password ) {
 

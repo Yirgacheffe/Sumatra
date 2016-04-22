@@ -13,7 +13,9 @@ import com.nsv.timentry.dto.UserDTO;
 @Local
 public interface UserFacadeLocal {
 
+    boolean sendPasswordResetVerificationMail( String email );
     UserDTO login( String email, String password );
-    boolean resetPassword( String email, String password, String newPassword );
+
+    boolean resetPassword( String email, String password, String secretKey );
 
 } //:~

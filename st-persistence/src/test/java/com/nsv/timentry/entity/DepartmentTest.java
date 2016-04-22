@@ -36,6 +36,7 @@ public class DepartmentTest {
         if ( emf != null ) { emf.close(); }
     }
     
+
     @Test
     public void smokeTest() {
 

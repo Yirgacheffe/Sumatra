@@ -1,16 +1,20 @@
 /*
- * Sumatra Project project define file, include all sub projects
- *
+ * Sumatra Project setting file, include all sub projects
+ * Anyone want to add projects just using include statement to add it
  */
 rootProject.name = 'Sumatra'
 
-// include 'st-const'
-include 'st-dto'
-include 'st-service'
-// include 'st-jobs'
-// include 'st-util'
-include 'st-web'
 include 'st-persistence'
+
+include 'st-dto'
+include 'st-mailer'
+
+include 'st-web'
+include 'st-service'
+include 'st-timer'
+
+include 'st-nio'
+
 
 rootProject.children.each { project ->
 

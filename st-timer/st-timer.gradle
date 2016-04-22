@@ -1,10 +1,9 @@
 /**
- * st-service.gradle
+ * st-timer.gradle
  *
  * Gradle build script followed by convention over configuration rules
  * Currently we don't have any comments here, just a place holder that will change in the future
  */
 dependencies {
-  compile project( ':st-persistence' )
-  compile project( ':st-dto'         )
+  compile project( ':st-service' )
 }

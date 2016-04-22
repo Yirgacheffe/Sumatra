@@ -1,0 +1,18 @@
+/**
+ * st-web.gradle
+ *
+ * Gradle build script followed by convention over configuration rules
+ * Currently we don't have any comments here, just a place holder that will change in the future
+ */
+apply plugin: 'jetty'
+apply plugin: 'war'
+
+dependencies {
+
+  compile ( libraries.struts2_core       )
+  compile ( libraries.struts2_convention )
+
+  compile project( ':st-dto' )
+  compile project( ':st-service' )
+
+}

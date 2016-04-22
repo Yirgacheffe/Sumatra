@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+
+    <!--
+      - Guess you know that develop web application is complex
+      - so here is the configuration for struts2, lots of variables and actions
+      - Hope it is not boring you... :-)
+    -->
+    <constant name="struts.custom.i18n.resources" value="ApplicationResources" />
+    <constant name="struts.devMode"               value="true"      />
+    <constant name="struts.i18n.encoding"         value="UTF-8"     />
+    <!-- 900 x 1000 x 1000 -->
+    <constant name="struts.multipart.maxSize"     value="900000000" />
+
+
+    <!--
+      - Global settings for time entry web application, other package should
+      - extends from this global package
+     -->
+    <package name="global" extends="struts-default" namespace="/">
+
+        <!-- Default global intercepters settings -->
+        <interceptors>
+            <interceptor name="auth" class="com.nsv.timentry.interceptor.LoginInterceptor" />
+            <interceptor-stack   name="defaultAuthInterceptorStack">
+                <interceptor-ref name="createSession" />
+                <interceptor-ref name="auth" />
+                <interceptor-ref name="defaultStack"  />
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="defaultAuthInterceptorStack" />
+
+        <global-results>
+            <result name="index" type="redirect">/index.action</result>
+            <result name="login" type="redirect">/index.action</result>
+            <result name="error">/error.jsp</result>
+        </global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error" />
+        </global-exception-mappings>
+
+        <!-- Global actions for index, login and logout -->
+        <action name="index">
+            <result>/index.jsp</result>
+        </action>
+
+        <action name="login"  class="com.nsv.timentry.controller.UserController" method="login">
+            <result name="input">/index.jsp</result>
+            <result name="success" type="redirect">/portal.jsp</result>
+        </action>
+
+        <action name="logout" class="com.nsv.timentry.controller.UserController" method="logout">
+            <result name="index">/index.jsp</result>
+            <result name="success" type="redirect">/index.jsp</result>
+        </action>
+        <!-- - - Global actions for index, login and logout ending - - -->
+
+    </package>
+
+
+    <!--
+      - default action settings, every module goes here
+    -->
+    <package name="default" extends="global">
+
+        <action name="forgotPassword" class="com.nsv.timentry.controller.PasswordController"
+                method="forgot">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="resetToDefault" class="com.nsv.timentry.controller.PasswordController"
+                method="resetToDefault">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="resetPassword"  class="com.nsv.timentry.controller.PasswordController"
+                method="reset">
+            <result name="success" type="redirect">/index.jsp</result>
+        </action>
+
+    </package>
+    <!-- default action settings ( password, employee, project, work log ) end here - - - - - -->
+
+</struts>

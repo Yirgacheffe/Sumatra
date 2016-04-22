@@ -6,6 +6,7 @@
     <persistence-unit name="NsvTimentry-JSE" transaction-type="RESOURCE_LOCAL">
         
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
         <class>com.nsv.timentry.converter.GenderConverter       </class>  
         <class>com.nsv.timentry.converter.LogStatusConverter    </class>
         <class>com.nsv.timentry.converter.LogTypeConverter      </class>

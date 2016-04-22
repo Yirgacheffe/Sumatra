@@ -50,12 +50,15 @@ subprojects { project ->
   sourceCompatibility = rootProject.javaLanguageLevel
 
   dependencies {
-    compile        ( libraries.javaee_api )
-    compile        ( libraries.slf4j_api  )
+    compile        ( libraries.javaee_api         )
+    compile        ( libraries.hibernate_core     )
+    compile        ( libraries.hibernate_em       )
+    compile        ( libraries.slf4j_api          )
     compile        ( libraries.apache_common_lang )
-    testCompile    ( libraries.junit      )
-    testCompile    ( libraries.mockito    )
-    testCompile    ( libraries.hibernate_em       )
+    compile        ( libraries.joda_time          )
+
+    testCompile    ( libraries.junit              )
+    testCompile    ( libraries.mockito            )
     testRuntime    ( libraries.mysql_driver       )
   }
 
@@ -63,11 +66,13 @@ subprojects { project ->
     main {
       java.srcDir       'src/main/java'
       resources.srcDir  'src/main/resources'
+      // compileClasspath += configurations.provided
     }
     test {
       java.srcDir       'src/test/java'
       resources.srcDir  'src/test/resources'
     }
+
     /*
     integTest {
       java.srcDir       'src/integTest/java'
@@ -77,6 +82,8 @@ subprojects { project ->
     }
     */
   }
+
+
   /*
   task integTest( type: Test ) {
     description = "Run the integration test."
