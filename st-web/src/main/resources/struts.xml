@@ -83,6 +83,11 @@
             <result name="success" type="redirect">/index.jsp</result>
         </action>
 
+        <action name="createNewProject" class="com.nsv.timentry.controller.ProjectController"
+                method="create">
+            <result name="success" type="redirect">/proj/list.jsp</result>
+        </action>
+
     </package>
     <!-- default action settings ( password, employee, project, work log ) end here - - - - - -->
 

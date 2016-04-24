@@ -1,4 +1,4 @@
-//: package com.nsv.timentry.controller: PasswordController.java
+//: com.nsv.timentry.controller: PasswordController.java
 package com.nsv.timentry.controller;
 
 import java.util.Map;
@@ -8,9 +8,8 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.slf4j.Logger;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import com.nsv.timentry.service.UserFacadeLocal;
@@ -30,6 +29,8 @@ public class PasswordController extends ActionSupport implements SessionAware {
 
     // ----------------------------------------------------------------------------------
 
+    // TODO: Here might be need some CDI annotation or guice injection
+    private UserFacadeLocal userFacade  = null;
     private Map<String, Object> session = null;
 
     private String email      = null;
@@ -40,10 +41,13 @@ public class PasswordController extends ActionSupport implements SessionAware {
     // Just don't want to repeat the word 'password'
     private String secretKey  = null;
 
-
     @Override
     public void setSession( Map<String, Object> session ) {
         this.session = session;
+    }
+
+    public void setUserFacade( UserFacadeLocal userFacade ) {
+        this.userFacade = userFacade;
     }
 
     public String getEmail() {
@@ -76,12 +80,6 @@ public class PasswordController extends ActionSupport implements SessionAware {
 
     public void setSecretKey( String secretKey ) {
         this.secretKey = secretKey;
-    }
-
-    private UserFacadeLocal userFacade = null;
-
-    public void setUserFacade( UserFacadeLocal userFacade ) {
-        this.userFacade = userFacade;
     }
 
 

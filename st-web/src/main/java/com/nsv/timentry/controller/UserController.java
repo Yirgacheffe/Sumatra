@@ -15,6 +15,8 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 import com.nsv.timentry.dto.UserDTO;
 import com.nsv.timentry.service.UserFacadeLocal;
 
+import com.nsv.timentry.model.User;
+
 
 /**
  * UserController
@@ -30,14 +32,19 @@ public class UserController extends ActionSupport implements SessionAware {
             Logger logger = LoggerFactory.getLogger( UserController.class );
 
     // ----------------------------------------------------------------------------------
+    private UserFacadeLocal  userFacade = null;
     private Map<String, Object> session = null;
 
     private String email    = null;
     private String password = null;
 
     @Override
-    public void setSession( Map<String, Object> session ) {
+    public void setSession( Map<String, Object>   session ) {
         this.session = session;
+    }
+
+    public void setUserFacade( UserFacadeLocal userFacade ) {
+        this.userFacade = userFacade;
     }
 
     public String getEmail() {
@@ -54,13 +61,6 @@ public class UserController extends ActionSupport implements SessionAware {
 
     public void setPassword( String password ) {
         this.password = password;
-    }
-
-
-    private UserFacadeLocal userFacade = null;
-
-    public void setUserFacade( UserFacadeLocal userFacade ) {
-        this.userFacade = userFacade;
     }
 
 
@@ -100,12 +100,31 @@ public class UserController extends ActionSupport implements SessionAware {
             return Action.INPUT;
         }
 
-        session.put( "LOGIN_USER", loginUser);
+        User sessionUser = buildFromDTO( loginUser );
+        session.put( "LOGIN_USER", sessionUser );
 
-        logger.debug( "login finished, user {} is in session.", loginUser );
+        logger.debug( "login finished, user {} in session.", sessionUser.getName() );
         return Action.SUCCESS;
 
     }
+
+
+    private User buildFromDTO( UserDTO userDTO ) {
+
+        String name     = userDTO.name();
+        Short  roleId   = userDTO.roleId();
+        Short  id       = userDTO.id();
+
+        Short  mgrId    = userDTO.managerId();
+        String email    = userDTO.email();
+        Short  empId    = userDTO.empId();
+        String roleType = userDTO.roleType();
+        Short  officeId = userDTO.officeId();
+
+        return new User( id, empId, name, email, mgrId, roleId, roleType, officeId );
+
+    }
     // ----------------------------------------------------------------------------------
+
 
 } //:~

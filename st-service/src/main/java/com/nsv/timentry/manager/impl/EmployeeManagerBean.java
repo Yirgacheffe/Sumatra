@@ -80,6 +80,7 @@ public class EmployeeManagerBean extends GenericManagerBean< Employee, Short >
         
     }
 
+
     @Override
     public Employee findByEmail( String email ) {
 
@@ -88,6 +89,7 @@ public class EmployeeManagerBean extends GenericManagerBean< Employee, Short >
                  .getSingleResult();
 
     }
+
 
     @Override
     public Employee createBySQLThenGrab( String email, Object[] dbOrderedParams ) {
@@ -110,9 +112,11 @@ public class EmployeeManagerBean extends GenericManagerBean< Employee, Short >
 
     }
 
+
     @Override
     public Collection<Employee> queryByNameAndEmailInLikeStyle( String name, String email, boolean isRemoved ) {
 
+        //: TODO: not quite well
         final String nameLikeSql = name  + "%";
         final String mailLikeSql = email + "%";
 
@@ -122,8 +126,6 @@ public class EmployeeManagerBean extends GenericManagerBean< Employee, Short >
                 .setParameter( "removed", isRemoved ).getResultList();
 
     }
-
-
 
 
 } //:~

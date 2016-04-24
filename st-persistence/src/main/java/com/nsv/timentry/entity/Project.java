@@ -23,6 +23,9 @@ import com.nsv.timentry.constant.ProjectStatus;
  */
 @Entity
 @Table( name = "PROJECTS" )
+@NamedQueries({
+    @NamedQuery( name = "Project.findByProjNum", query = "SELECT p FROM Project p WHERE p.projNum = :projNum" )
+})
 public final class Project implements Serializable {
 
     
@@ -39,15 +42,16 @@ public final class Project implements Serializable {
     private ProjectStatus status;
     private String        memo;
     
-    private int           creatorId;
-    private int           lastUpdatedBy;
+    private short         creatorId;
+    private short         lastUpdatedBy;
     private Date          tsCreated;
     private Date          tsUpdated;
     private short         version;
-    
+    private Employee      leader;
+
     private Collection<Task>     tasks;
     private Collection<Employee> projMembers;
-    
+
     
     // ------------------------------------------------------------------------
     @Id
@@ -147,11 +151,11 @@ public final class Project implements Serializable {
     
     @Column( name = "CREATOR_ID", nullable = false )
     @NotNull
-    public int getCreatorId() {
+    public short getCreatorId() {
         return this.creatorId;
     }
 
-    public void setCreatorId( int creatorId ) {
+    public void setCreatorId( short creatorId ) {
         this.creatorId = creatorId;
     }
     
@@ -168,11 +172,11 @@ public final class Project implements Serializable {
     
     @Column( name = "LAST_UPDATED_BY", nullable = false )
     @NotNull
-    public int getLastUpdatedBy() {
+    public short getLastUpdatedBy() {
         return this.lastUpdatedBy;
     }
 
-    public void setLastUpdatedBy( int lastUpdatedBy ) {
+    public void setLastUpdatedBy( short lastUpdatedBy ) {
         this.lastUpdatedBy = lastUpdatedBy;
     }
     
@@ -220,7 +224,18 @@ public final class Project implements Serializable {
     public void setProjMembers( Collection<Employee> projMembers ) {
         this.projMembers = projMembers;
     }
-    
+
+
+    @ManyToOne
+    @JoinColumn( name = "LEADER_ID", nullable = false )
+    public Employee getLeader() {
+        return leader;
+    }
+
+    public void setLeader( Employee leader ) {
+        this.leader = leader;
+    }
+
 
     @Override
     public String toString() {

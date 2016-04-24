@@ -36,10 +36,15 @@ ext {
     derby:                        "org.apache.derby:derby:10.12.1.1",
     derby_client:                 "org.apache.derby:derbyclient:10.12.1.1", 
     
-    joda_time:                    "joda-time:joda-time:2.9.3",
+    // apache struts2
     struts2_core:                 "org.apache.struts:struts2-core:2.3.28",
     struts2_convention:           "org.apache.struts:struts2-convention-plugin:2.3.28",
-    netty_io:                     "io.netty:netty-all:4.0.36.Final"
+
+    netty_io:                     "io.netty:netty-all:4.0.36.Final",
+    joda_time:                    "joda-time:joda-time:2.9.3",
+
+    // google library for json
+    gson_lib:                     "com.google.code.gson:gson:2.6.2"
 
   ]
 

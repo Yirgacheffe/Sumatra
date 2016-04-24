@@ -14,5 +14,6 @@ import com.nsv.timentry.entity.Project;
 public interface ProjectManagerLocal extends GenericManagerLocal<Project, Integer> {
 
     boolean createBySQL( Object[] dbOrderedParams );
+    Project findByProjNum( String projNum );
 
 } //:~

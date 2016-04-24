@@ -1,6 +1,8 @@
 //: com.nsv.timentry.service: ProjectFacadeLocal.java
 package com.nsv.timentry.service;
 
+import com.nsv.timentry.dto.ProjectDTO;
+
 import javax.ejb.Local;
 
 
@@ -12,6 +14,8 @@ import javax.ejb.Local;
 @Local
 public interface ProjectFacadeLocal {
 
-    // Place holder, put methods here ..........................
+    boolean create( ProjectDTO project );
+    boolean update( ProjectDTO project );
+
 
 } //:~

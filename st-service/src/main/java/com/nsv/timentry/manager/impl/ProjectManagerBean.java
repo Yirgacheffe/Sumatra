@@ -75,8 +75,19 @@ public class ProjectManagerBean extends GenericManagerBean< Project, Integer > i
             q.setParameter( i + 1, dbOrderedParams[i] );
         }
 
-        return q.executeUpdate() == 1;  // Created successful , god knows... ???
+        return q.executeUpdate() == 1;  // Created successful? god knows...
 
+    }
+
+    @Override
+    public Project findByProjNum( String projNum ) {
+
+        if ( logger.isDebugEnabled() ) {
+            logger.debug( "Find project by project number: {}", projNum );
+        }
+
+        return em.createNamedQuery(
+            "Project.findByProjNum", Project.class ).setParameter( "projNum", projNum ).getSingleResult();
     }
 
 

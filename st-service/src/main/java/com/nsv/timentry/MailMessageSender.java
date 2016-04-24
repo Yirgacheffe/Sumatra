@@ -33,6 +33,7 @@ public class MailMessageSender {
         SUBJECT = "mail.subject";
     }
 
+    // TODO: lookup name not correct
     @Inject
     @Resource( lookup = "java/xyz/ConnectionFactory" )
     private JMSContext context;

@@ -10,7 +10,7 @@ import com.opensymphony.xwork2.ActionInvocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nsv.timentry.dto.UserDTO;
+import com.nsv.timentry.model.User;
 
 
 /**
@@ -56,7 +56,7 @@ public class LoginInterceptor extends AbstractInterceptor {
         Action action = (Action) proxy.getAction();
 
         if ( action instanceof UserAware) {
-            ( (UserAware) action ).setUser( (UserDTO) user );
+            ( (UserAware) action ).setUser( (User) user );
         }
 
         logger.debug( "Intercept closed, invoke action: {}",  actionName );

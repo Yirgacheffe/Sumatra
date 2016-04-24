@@ -11,6 +11,7 @@ dependencies {
 
   compile ( libraries.struts2_core       )
   compile ( libraries.struts2_convention )
+  compile ( libraries.gson_lib           )
 
   compile project( ':st-dto' )
   compile project( ':st-service' )

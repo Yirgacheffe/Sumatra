@@ -1,0 +1,10 @@
+/**
+ * st-dto.gradle
+ *
+ * Gradle build script followed by convention over configuration rules
+ * Currently we don't have any comments here, just a place holder that will change in the future
+ */
+
+dependencies {
+  testCompile ( libraries.gson_lib )
+}

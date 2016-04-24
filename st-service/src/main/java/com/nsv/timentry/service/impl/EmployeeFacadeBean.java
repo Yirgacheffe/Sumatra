@@ -32,10 +32,6 @@ public class EmployeeFacadeBean implements EmployeeFacadeLocal, EmployeeFacade {
 
     private static final Logger logger = LoggerFactory.getLogger( EmployeeFacadeBean.class );
 
-
-    @PersistenceContext( unitName = "NsvTimentry-JTA" )
-    private EntityManager em;
-
     @EJB
     private CertificateManagerLocal  certMgr;
 
