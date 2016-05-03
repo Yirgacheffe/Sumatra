@@ -24,7 +24,10 @@ import com.nsv.timentry.constant.ProjectStatus;
 @Entity
 @Table( name = "PROJECTS" )
 @NamedQueries({
-    @NamedQuery( name = "Project.findByProjNum", query = "SELECT p FROM Project p WHERE p.projNum = :projNum" )
+    @NamedQuery( name = "Project.findByProjNum",    query = "SELECT p FROM Project p WHERE p.projNum = :projNum"  ),
+    @NamedQuery( name = "Project.findByProjLeader", query = "SELECT p FROM Project p "
+                                                          + "WHERE p.leader.name like :leaderName" ),
+    @NamedQuery( name = "Project.findByProjName",   query = "SELECT p FROM Project p WHERE p.name like :projName" )
 })
 public final class Project implements Serializable {
 

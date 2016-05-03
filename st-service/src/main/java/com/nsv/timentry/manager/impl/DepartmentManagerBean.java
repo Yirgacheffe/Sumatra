@@ -36,6 +36,9 @@ public class DepartmentManagerBean extends GenericManagerBean< Department, Short
         return em;
     }
 
+    protected String insertSQL() {
+        return "";
+    }
 
     @Override
     public void update( Department dept ) {

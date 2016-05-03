@@ -36,6 +36,9 @@ public class DiplomaManagerBean extends GenericManagerBean< Diploma, Short > imp
         return em;
     }
 
+    protected String insertSQL() {
+        return "";
+    }
 
     @Override
     public void update( Diploma diploma ) {

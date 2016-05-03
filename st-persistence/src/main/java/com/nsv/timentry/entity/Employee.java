@@ -25,11 +25,11 @@ import com.nsv.timentry.constant.PoliticalType;
 @Entity
 @Table( name = "EMPLOYEES" )
 @NamedQueries({
-    @NamedQuery( name = "Employee.findByNameAndEmailWithLike", query = "SELECT e FROM Employee e "
-                                                                     + "WHERE e.email like :email "
-                                                                     + "AND e.name like :name "
-                                                                     + "AND e.user.removed = :removed order by e.name" ),
-    @NamedQuery( name = "Employee.findById",    query = "SELECT e FROM Employee e WHERE e.id = :id"       ),
+    @NamedQuery( name = "Employee.findByNameAndEmail", query = "SELECT e FROM Employee e  "
+                                                             + "WHERE e.email like :email "
+                                                             + "AND e.name like :name "
+                                                             + "AND e.user.removed = :removed order by e.name" ),
+    @NamedQuery( name = "Employee.findById",    query = "SELECT e FROM Employee e WHERE e.id = :id" ),
     @NamedQuery( name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email" )
 })
 public class Employee implements Serializable {

@@ -149,6 +149,7 @@ public class PasswordController extends ActionSupport implements SessionAware {
 
         logger.info( "Password reset succeed for user: {}", new Object[] { email } );
         return   Action.SUCCESS;
+
     }
 
 

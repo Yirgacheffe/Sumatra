@@ -1,13 +1,16 @@
 //: com.nsv.timentry.manager.impl: ProjectManagerBean.java
 package com.nsv.timentry.manager.impl;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceContext;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.nsv.timentry.QueryUtil;
 
 import com.nsv.timentry.manager.ProjectManagerLocal;
 import com.nsv.timentry.entity.Project;
@@ -52,43 +55,60 @@ public class ProjectManagerBean extends GenericManagerBean< Project, Integer > i
         return em;
     }
 
-
-    @Override
-    public void update( Project project ) {
-
-        Integer id = project.getId();
-
-        if ( findById(id) == null ) {
-            throw new IllegalArgumentException( "No Project entity with ID: " + id );
-        }
-
-        em.merge( project );
-
+    protected String insertSQL() {
+        return SQL_INSERT;
     }
 
-    @Override
-    public boolean createBySQL( Object[] dbOrderedParams ) {
-
-        Query q = em.createNativeQuery( SQL_INSERT );
-
-        for ( int i = 0, n = dbOrderedParams.length; i < n; i++ ) {
-            q.setParameter( i + 1, dbOrderedParams[i] );
-        }
-
-        return q.executeUpdate() == 1;  // Created successful? god knows...
-
-    }
 
     @Override
     public Project findByProjNum( String projNum ) {
 
         if ( logger.isDebugEnabled() ) {
-            logger.debug( "Find project by project number: {}", projNum );
+            logger.debug( "Find project by project number: {}",  projNum );
         }
 
-        return em.createNamedQuery(
-            "Project.findByProjNum", Project.class ).setParameter( "projNum", projNum ).getSingleResult();
+        final String query = "Project.findByProjLeader";
+        return QueryUtil.execAndGetSR( em, query, Project.class, projNum );
+
     }
+
+
+    @Override
+    public List<Project> findByProjLeader( String leaderName ) {
+
+        if ( logger.isDebugEnabled() ) {
+            logger.debug(
+                "Find projects by project leader: {}",
+                leaderName );
+        }
+
+        final String query = "Project.findByProjLeader";
+        final String keyWord = leaderName + "%";
+
+        return QueryUtil.execAndGetRL( em, query, Project.class, keyWord );
+
+    }
+
+
+    public List<Project> findByProjName( String projName ) {
+
+        if ( logger.isDebugEnabled() ) {
+            logger.debug(
+                "Find projects by project number: {}",
+                projName );
+        }
+
+        final String query   = "Project.findByProjName";
+        final String keyWord = projName + "%";
+
+        return QueryUtil.execAndGetRL( em, query, Project.class, keyWord  );
+
+    }
+
+
+
+
+
 
 
 } //:~

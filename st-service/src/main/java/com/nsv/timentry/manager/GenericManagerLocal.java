@@ -11,12 +11,15 @@ import java.io.Serializable;
 public interface GenericManagerLocal<T, PK extends Serializable> {
 
     void create( T entity );
-    void update( T entity );
-
     void remove( PK id );
     void remove( T entity );
 
+
+    void update( T entity );
+
     T findById( PK id );
     T findByIdWithQuery( PK id );
+
+    boolean createBySQL( Object[] params );
 
 } //:~

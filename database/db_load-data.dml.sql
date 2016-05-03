@@ -75,7 +75,7 @@ INSERT INTO `DIPLOMA` ( NAME, MEMO ) VALUES ( '专科',        'Tertiary'    );
 INSERT INTO `DIPLOMA` ( NAME, MEMO ) VALUES ( '本科',        'Bachelor'    );
 INSERT INTO `DIPLOMA` ( NAME, MEMO ) VALUES ( '硕士',        'Master'      );
 INSERT INTO `DIPLOMA` ( NAME, MEMO ) VALUES ( '博士',        'Doctor'      );
-INSERT INTO `DIPLOMA` ( NAME, MEMO ) VALUES ( '专科 - 自考', 'Tertiary'    );
+INSERT INTO `DIPLOMA` ( NAME, MEMO ) VALUES ( '专科 - 自考',  'Tertiary'    );
 
 --
 -- Initialized data for table `OFFICES` ----------------------------------------------------------------

@@ -36,6 +36,10 @@ public class RoleManagerBean extends GenericManagerBean< Role, Short > implement
         return em;
     }
 
+    protected String insertSQL() {
+        return "";
+    }
+
 
     @Override
     public void update( Role role ) {

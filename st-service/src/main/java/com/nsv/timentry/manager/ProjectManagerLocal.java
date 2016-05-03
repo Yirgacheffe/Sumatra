@@ -1,6 +1,8 @@
 //: com.nsv.timentry.manager: ProjectManagerLocal.java
 package com.nsv.timentry.manager;
 
+import java.util.List;
+
 import javax.ejb.Local;
 import com.nsv.timentry.entity.Project;
 
@@ -13,7 +15,12 @@ import com.nsv.timentry.entity.Project;
 @Local
 public interface ProjectManagerLocal extends GenericManagerLocal<Project, Integer> {
 
-    boolean createBySQL( Object[] dbOrderedParams );
+    List<Project> findByProjLeader( String leaderName );
+
     Project findByProjNum( String projNum );
+
+    List<Project> findByProjName( String projName );
+    boolean createBySQL( Object[] dbOrderedParams );
+
 
 } //:~

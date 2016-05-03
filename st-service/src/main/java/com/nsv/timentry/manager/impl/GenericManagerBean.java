@@ -4,11 +4,11 @@ package com.nsv.timentry.manager.impl;
 import java.io.Serializable;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nsv.timentry.QueryUtil;
 import com.nsv.timentry.manager.GenericManagerLocal;
 
 
@@ -83,6 +83,11 @@ public abstract class GenericManagerBean< T, PK extends Serializable > implement
 
     }
 
+    @Override
+    public void update( T entity ) {
+        em().merge( entity );
+    }
+
     /**
      * NamedQuery placed in entity class as annotation, this method trying to get the
      * named query as string
@@ -102,6 +107,13 @@ public abstract class GenericManagerBean< T, PK extends Serializable > implement
         return em().createNamedQuery( queryNameFromEntityAnnotation( "findById" ), entityClazz )
                    .setParameter( "id", id )
                    .getSingleResult();
+    }
+
+    protected abstract String insertSQL();
+
+    @Override
+    public boolean createBySQL( Object[] params ) {
+        return QueryUtil.execUpdate( em(), insertSQL(), params ) == 1;
     }
 
 

@@ -2,12 +2,17 @@
 package com.nsv.timentry.controller;
 
 import java.util.Date;
+import java.util.Map;
 
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+
+import com.google.gson.Gson;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import com.nsv.timentry.dto.ProjectDTO;
 import com.nsv.timentry.service.ProjectFacadeLocal;
@@ -35,16 +40,13 @@ public class ProjectController extends ActionSupport implements UserAware {
         this.projFacade = projFacade;
     }
 
-
+    private Project project = null;
     private User user;
 
     @Override
     public void setUser( User user ) {
         this.user = user;
     }
-
-
-    private Project project = null;
 
     public Project getProject() {
         return this.project;
@@ -91,6 +93,42 @@ public class ProjectController extends ActionSupport implements UserAware {
 
         logger.info( "Project update successfully with id: {}", projDTO.projNum() );
         return  Action.SUCCESS;
+
+    }
+
+
+    // Response result as Json string
+    private String responseAsJson;
+
+    public String getResponseAsJson() {
+        return responseAsJson;
+    }
+
+    public void setResponseAsJson( String responseAsJson ) {
+        this.responseAsJson = responseAsJson;
+    }
+
+
+    /**
+     * Action for get project details
+     */
+    public String details() {
+
+        Map<String, Object> req = ActionContext.getContext().getParameters();
+        String projId = (String) req.get( "id" );
+
+        if ( isBlank(projId) ) {
+            addActionError( getText("error.project.details.link") );
+            return Action.INPUT;
+        }
+
+        ProjectDTO dto = projFacade.findById( Integer.parseInt( projId ) );
+
+        String jsonString = new Gson().toJson( dto );
+        setResponseAsJson( jsonString );
+
+        logger.debug("Send response as Json string, result is: {}", jsonString );
+        return Action.SUCCESS;
 
     }
 

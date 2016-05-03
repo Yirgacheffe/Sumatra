@@ -36,6 +36,10 @@ public class HrRoleManagerBean extends GenericManagerBean< HrRole, Short > imple
         return em;
     }
 
+    protected String insertSQL() {
+        return "";
+    }
+
 
     @Override
     public void update( HrRole hrRole ) {

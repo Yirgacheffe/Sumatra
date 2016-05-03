@@ -55,15 +55,20 @@ public final class ProjectDTO implements Serializable {
         this.leaderName    = builder.leaderName;
     }
 
-    public boolean isProj()     { return this.isProj;     }
-    public Date    closeDate()  { return this.closeDate;  }
-    public String  name()       { return this.name;       }
-    public Integer id()         { return this.id;         }
-    public Short   leaderId()   { return this.leaderId;   }
-    public String  leaderName() { return this.leaderName; }
-    public String  projNum()    { return this.projNum;    }
-    public Date    startDate()  { return this.startDate;  }
-
+    public boolean isProj()        { return this.isProj;        }
+    public Date    closeDate()     { return this.closeDate;     }
+    public String  name()          { return this.name;          }
+    public Integer id()            { return this.id;            }
+    public Short   leaderId()      { return this.leaderId;      }
+    public String  leaderName()    { return this.leaderName;    }
+    public String  projNum()       { return this.projNum;       }
+    public Date    startDate()     { return this.startDate;     }
+    public int     budget()        { return this.budget;        }
+    public char    status()        { return this.status;        }
+    public String  memo()          { return this.memo;          }
+    public short   lastUpdatedBy() { return this.lastUpdatedBy; }
+    public Date    tsCreated()     { return this.tsCreated;     }
+    public Date    tsUpdated()     { return this.tsUpdated;     }
 
     public Object[] asArrayInDBOrder() {
         return new Object[] {
@@ -71,7 +76,8 @@ public final class ProjectDTO implements Serializable {
             name,
             startDate,
             closeDate,
-            leaderId, isProj, budget, status, memo, creatorId, lastUpdatedBy };
+            leaderId,
+            isProj, budget, status, memo, creatorId, lastUpdatedBy };
     }
 
     // ----------------------------------------------------------------------------------

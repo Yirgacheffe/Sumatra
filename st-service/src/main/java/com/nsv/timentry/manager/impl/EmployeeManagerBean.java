@@ -66,6 +66,10 @@ public class EmployeeManagerBean extends GenericManagerBean< Employee, Short >
         return em;
     }
 
+    protected String insertSQL() {
+        return SQL_INSERT;
+    }
+
 
     @Override
     public void update( Employee employee ) {
@@ -82,16 +86,6 @@ public class EmployeeManagerBean extends GenericManagerBean< Employee, Short >
 
 
     @Override
-    public Employee findByEmail( String email ) {
-
-        return em.createNamedQuery( "Employee.findByEmail", Employee.class )
-                 .setParameter( "email", email )
-                 .getSingleResult();
-
-    }
-
-
-    @Override
     public Employee createBySQLThenGrab( String email, Object[] dbOrderedParams ) {
 
         Query q = em.createNativeQuery( SQL_INSERT );
@@ -104,7 +98,7 @@ public class EmployeeManagerBean extends GenericManagerBean< Employee, Short >
 
         if ( affectRows != 1 ) {
             logger.debug(
-                    "Employee.SQL: exec {} not able to create new record.", SQL_INSERT );
+                "Employee.SQL: exec {} not able to create new record.", SQL_INSERT );
             return null;
         } else {
             return this.findByEmail( email );
@@ -114,16 +108,26 @@ public class EmployeeManagerBean extends GenericManagerBean< Employee, Short >
 
 
     @Override
-    public Collection<Employee> queryByNameAndEmailInLikeStyle( String name, String email, boolean isRemoved ) {
+    public Employee findByEmail( String email ) {
+
+        return em.createNamedQuery( "Employee.findByEmail", Employee.class )
+                 .setParameter( "email", email )
+                 .getSingleResult();
+
+    }
+
+
+    @Override
+    public Collection<Employee> queryByNameAndEmail( String name, String email, boolean isRemoved ) {
 
         //: TODO: not quite well
         final String nameLikeSql = name  + "%";
         final String mailLikeSql = email + "%";
 
-        return em.createNamedQuery( "Employee.findByNameAndEmailWithLike", Employee.class )
-                .setParameter( "name",    nameLikeSql )
-                .setParameter( "email",   mailLikeSql )
-                .setParameter( "removed", isRemoved ).getResultList();
+        return em.createNamedQuery( "Employee.findByNameAndEmail", Employee.class )
+                 .setParameter( "name",    nameLikeSql )
+                 .setParameter( "email",   mailLikeSql )
+                 .setParameter( "removed", isRemoved ).getResultList();
 
     }
 

@@ -48,6 +48,9 @@ public class DayLogManagerBean extends GenericManagerBean< DayLog, Integer > imp
         return em;
     }
 
+    protected String insertSQL() {
+        return SQL_INSERT;
+    }
 
     @Override
     public void update( DayLog dayLog ) {

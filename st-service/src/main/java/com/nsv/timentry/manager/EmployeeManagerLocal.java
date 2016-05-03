@@ -15,9 +15,9 @@ import com.nsv.timentry.entity.Employee;
 @Local
 public interface EmployeeManagerLocal extends GenericManagerLocal< Employee, Short > {
 
-    Employee findByEmail( String email );
     Employee createBySQLThenGrab( String email, Object[] dbOrderedValues );
+    Employee findByEmail( String email );
 
-    Collection<Employee> queryByNameAndEmailInLikeStyle( String name, String email, boolean isRemoved );
+    Collection<Employee> queryByNameAndEmail( String name, String email, boolean isRemoved );
     
 } //:~

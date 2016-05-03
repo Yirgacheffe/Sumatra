@@ -49,6 +49,10 @@ public class CertificateManagerBean extends GenericManagerBean< Certificate, Sho
         return em;
     }
 
+    protected String insertSQL() {
+        return SQL_INSERT;
+    }
+
 
     @Override
     public void update( Certificate certificate ) {
@@ -63,18 +67,5 @@ public class CertificateManagerBean extends GenericManagerBean< Certificate, Sho
 
     }
 
-
-    @Override
-    public boolean createBySQL( Object[] dbOrderedParams ) {
-
-        Query q = em.createNativeQuery( SQL_INSERT );
-
-        for ( int i = 0, n = dbOrderedParams.length; i < n; i++ ) {
-            q.setParameter( i + 1, dbOrderedParams[i] );
-        }
-
-        return q.executeUpdate() == 1;  // Created successful , god knows... ???
-
-    }
 
 } //:~

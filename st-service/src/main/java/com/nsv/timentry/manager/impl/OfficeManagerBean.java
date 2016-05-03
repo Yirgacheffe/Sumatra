@@ -36,6 +36,9 @@ public class OfficeManagerBean extends GenericManagerBean< Office, Short > imple
         return em;
     }
 
+    protected String insertSQL() {
+        return "";
+    }
 
     @Override
     public void update( Office office ) {

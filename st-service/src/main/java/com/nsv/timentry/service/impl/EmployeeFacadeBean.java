@@ -41,12 +41,7 @@ public class EmployeeFacadeBean implements EmployeeFacadeLocal, EmployeeFacade {
     @EJB
     private EmployeeManagerLocal employeeMgr;
 
-/*
-    @Override
-    public Collection<EmployeeDTO> listByPage( int curPage, int pageSize ) {
-        return null;
-    }
-*/
+
     @Override
     public boolean register( EmployeeDTO employee, UserDTO user ) {
 
