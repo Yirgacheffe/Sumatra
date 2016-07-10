@@ -106,9 +106,4 @@ public class ProjectManagerBean extends GenericManagerBean< Project, Integer > i
     }
 
 
-
-
-
-
-
 } //:~
